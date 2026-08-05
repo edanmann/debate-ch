@@ -1,0 +1,530 @@
+[
+  {
+    "slug": "foundations-first-round",
+    "track": "Foundations",
+    "title": "Your First Round",
+    "objective": "Understand what a motion, a side and a speech are — and what a judge actually rewards.",
+    "minutes": 4,
+    "nextLessonSlug": "argument-anatomy",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "The three moving parts",
+        "body": "Every round has a motion (the statement being argued), two sides (For and Against), and speeches delivered in a fixed order. You win by giving the judge clearer reasons than your opponent — not by talking more, faster, or louder."
+      },
+      {
+        "kind": "explain",
+        "heading": "What judges reward",
+        "body": "Judges score six things on Debates.ch: argumentation, rebuttal, evidence, strategy, delivery and persuasion. A short, structured speech that answers the opponent beats a long stream of unconnected points every time."
+      },
+      {
+        "kind": "question",
+        "prompt": "You're assigned Against on a motion you personally agree with. What should you do?",
+        "choices": [
+          "Argue the Against case as well as you can",
+          "Concede early because the motion is right",
+          "Argue For anyway — honesty first",
+          "Refuse the round"
+        ],
+        "answerIndex": 0,
+        "explanation": "Debating is a skill exercise: you argue the assigned side. Arguing positions you disagree with is precisely what builds the muscle of understanding both sides."
+      },
+      {
+        "kind": "question",
+        "prompt": "Which speech most impresses a judge?",
+        "choices": [
+          "Three developed arguments with a clear comparison to the other side",
+          "Seven quick points with no development",
+          "One long emotional story",
+          "A detailed attack on the opponent's speaking style"
+        ],
+        "answerIndex": 0,
+        "explanation": "Depth and comparison beat quantity. Judges reward developed mechanisms and explicit weighing, not point-counting — and never personal attacks."
+      }
+    ]
+  },
+  {
+    "slug": "argument-anatomy",
+    "track": "Argumentation",
+    "title": "Anatomy of an Argument",
+    "objective": "Build arguments with the claim → mechanism → example → impact structure.",
+    "minutes": 5,
+    "nextLessonSlug": "rebuttal-basics",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Claims are not arguments",
+        "body": "\"Homework should be banned\" is a claim. An argument adds a mechanism (WHY it leads to something), an example (WHERE we've seen it), and an impact (WHO is better off and by how much). Missing mechanisms are the most common weakness at every level."
+      },
+      {
+        "kind": "explain",
+        "heading": "The four-step chain",
+        "body": "Claim: primary-school homework should go. Mechanism: young children learn through play and rest; homework displaces both and adds family conflict. Example: several school systems dropped it with no measured achievement loss. Impact: less stress for millions of families at no academic cost."
+      },
+      {
+        "kind": "question",
+        "prompt": "\"Social media is bad for teenagers, everyone knows that, so it should be restricted.\" What's missing?",
+        "choices": [
+          "The mechanism — why and how it causes harm",
+          "A louder delivery",
+          "A longer conclusion",
+          "Nothing — it's complete"
+        ],
+        "answerIndex": 0,
+        "explanation": "\"Everyone knows\" is an appeal to popularity, not a mechanism. You need the causal chain: what specifically about the platforms produces what specific harm, for whom."
+      },
+      {
+        "kind": "question",
+        "prompt": "Which sentence states an impact?",
+        "choices": [
+          "As a result, a million commuters gain an hour a day with their families",
+          "Traffic congestion is caused by too many cars",
+          "Amsterdam built bicycle lanes in the 1970s",
+          "We propose congestion charging in city centres"
+        ],
+        "answerIndex": 0,
+        "explanation": "Impacts name who benefits and by how much. The others are a mechanism, an example and a proposal — all useful, but the impact is what the judge weighs."
+      }
+    ]
+  },
+  {
+    "slug": "rebuttal-basics",
+    "track": "Rebuttal",
+    "title": "Rebuttal That Actually Lands",
+    "objective": "Attack the load-bearing premise of an argument instead of its wording.",
+    "minutes": 5,
+    "nextLessonSlug": "evidence-that-counts",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Find the load-bearing premise",
+        "body": "Every argument rests on one premise that, if removed, collapses the rest. Rebuttal means identifying that premise and showing it is false, unproven, or outweighed — not disputing side details or restating your own case louder."
+      },
+      {
+        "kind": "explain",
+        "heading": "The four rebuttal moves",
+        "body": "Deny (the mechanism doesn't work), Mitigate (it works less than claimed), Outweigh (true, but our impact is bigger), Turn (their point actually helps us). The strongest rebuttals name the move: \"Even if that's true, here's why it doesn't decide the round.\""
+      },
+      {
+        "kind": "question",
+        "prompt": "Opponent: \"A four-day week works because trials showed stable productivity.\" What is the load-bearing premise?",
+        "choices": [
+          "That trial firms are representative of the whole economy",
+          "That workers enjoy three-day weekends",
+          "That productivity can be measured",
+          "That trials existed"
+        ],
+        "answerIndex": 0,
+        "explanation": "The trials happened and were measured — attacking that goes nowhere. The case collapses only if self-selected trial firms (often offices) don't generalise to hospitals, factories and shops."
+      },
+      {
+        "kind": "question",
+        "prompt": "Which response is a \"turn\"?",
+        "choices": [
+          "Your ban on plastic bags actually increases emissions, because cotton totes need 100+ uses to break even",
+          "Plastic bags aren't that bad",
+          "You didn't cite a source for that",
+          "Let me return to my own arguments"
+        ],
+        "answerIndex": 0,
+        "explanation": "A turn shows the opponent's policy produces the very harm they campaign against — their point becomes your evidence."
+      }
+    ]
+  },
+  {
+    "slug": "evidence-that-counts",
+    "track": "Evidence",
+    "title": "Evidence That Counts",
+    "objective": "Choose evidence for relevance and reliability, and represent uncertainty honestly.",
+    "minutes": 5,
+    "nextLessonSlug": "strategic-weighing",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Relevant beats impressive",
+        "body": "A modest statistic that measures exactly what you claim beats a dramatic one that measures something nearby. Ask: does this evidence support my mechanism, or just my mood? And never invent precision — \"roughly a third\" said honestly outscores \"34.7%\" said falsely."
+      },
+      {
+        "kind": "explain",
+        "heading": "The credibility ladder",
+        "body": "Systematic reviews and official statistics sit at the top; single studies and institutional reports in the middle; anecdotes and headlines at the bottom. Anecdotes aren't worthless — they make mechanisms vivid — but they can't carry a causal claim alone."
+      },
+      {
+        "kind": "question",
+        "prompt": "You half-remember a study but not its details. In a rated debate you should:",
+        "choices": [
+          "Present it as an illustrative example and flag your uncertainty",
+          "Invent plausible numbers to sound rigorous",
+          "Cite it confidently anyway",
+          "Say nothing and hope"
+        ],
+        "answerIndex": 0,
+        "explanation": "Honest uncertainty preserves credibility and still does argumentative work. Fabricated precision is the fastest way to lose a judge — and on this platform, bots are penalised for it too."
+      },
+      {
+        "kind": "question",
+        "prompt": "Motion: ban energy drinks for under-16s. Which evidence is MOST relevant?",
+        "choices": [
+          "A cohort study linking teen energy-drink consumption to sleep disruption",
+          "Global caffeine market revenue figures",
+          "A celebrity saying they feel jittery",
+          "The number of energy-drink flavours available"
+        ],
+        "answerIndex": 0,
+        "explanation": "It measures the claimed harm, in the claimed population, with a causal design. Market size and celebrity feelings measure something else entirely."
+      }
+    ]
+  },
+  {
+    "slug": "strategic-weighing",
+    "track": "Strategy",
+    "title": "Weighing: Why Yours Matters More",
+    "objective": "Compare impacts explicitly on magnitude, probability, timeframe and reversibility.",
+    "minutes": 6,
+    "nextLessonSlug": "clear-delivery",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Lists don't win rounds",
+        "body": "When both sides have standing arguments, judges look for weighing: which impact is bigger (magnitude), more likely (probability), sooner (timeframe), and harder to undo (reversibility)? The side that does this comparison controls how the round is decided."
+      },
+      {
+        "kind": "explain",
+        "heading": "Collapse before you close",
+        "body": "Strong debaters spend their final speech on the two or three clashes that decide the round and openly drop the rest. Answering everything shallowly is how you lose a round you were winning."
+      },
+      {
+        "kind": "question",
+        "prompt": "Your impact: slow economic gains for millions. Theirs: rare but irreversible harms to a few. Your strongest weighing lever?",
+        "choices": [
+          "Magnitude and probability — near-certain gains for millions outweigh rare edge cases",
+          "Repeat your mechanism louder",
+          "Concede — irreversibility always wins",
+          "Argue their harm doesn't matter at all"
+        ],
+        "answerIndex": 0,
+        "explanation": "Neither dimension auto-wins; you must argue the comparison. Claiming their harm doesn't matter concedes the framing; magnitude-times-probability is your honest strongest ground."
+      },
+      {
+        "kind": "question",
+        "prompt": "What does \"collapsing the round\" mean?",
+        "choices": [
+          "Choosing the decisive clashes and openly setting aside the rest",
+          "Giving up",
+          "Speaking as fast as possible to cover everything",
+          "Interrupting the opponent's closing"
+        ],
+        "answerIndex": 0,
+        "explanation": "Collapse is prioritisation made visible to the judge: \"This round comes down to two questions...\" It signals command, not surrender."
+      }
+    ]
+  },
+  {
+    "slug": "clear-delivery",
+    "track": "Delivery",
+    "title": "Structure They Can Hear",
+    "objective": "Use signposting, pace and sentence length so a listener never gets lost.",
+    "minutes": 4,
+    "nextLessonSlug": "persuasive-closings",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Signpost out loud",
+        "body": "Listeners can't re-read. Number your points (\"My first argument... my second...\"), flag transitions (\"Now to rebuttal\"), and end each point with its impact. Spoken structure is a courtesy that judges score."
+      },
+      {
+        "kind": "explain",
+        "heading": "Sentences you can breathe through",
+        "body": "Long written sentences die when spoken. Aim for one idea per sentence, pause at full stops, and slow down for your most important line rather than speeding up. A deliberate pause before your key comparison is worth ten adjectives."
+      },
+      {
+        "kind": "question",
+        "prompt": "You have 30 seconds left and two points remaining. Best move?",
+        "choices": [
+          "Deliver one point properly and name-drop the other in a sentence",
+          "Rush both at double speed",
+          "Stop early to seem confident",
+          "Start a brand-new argument"
+        ],
+        "answerIndex": 0,
+        "explanation": "One completed argument scores; two half-arguments don't. Time pressure is a prioritisation test disguised as a speaking test."
+      },
+      {
+        "kind": "question",
+        "prompt": "Which habit most helps a listening judge?",
+        "choices": [
+          "Numbering arguments and stating each one's impact before moving on",
+          "Sophisticated vocabulary throughout",
+          "Speaking without any pauses to show fluency",
+          "Saving all structure for the closing"
+        ],
+        "answerIndex": 0,
+        "explanation": "Numbered points with stated impacts give the judge a flowchart of your case in real time. Vocabulary and speed impress far less than trackability."
+      }
+    ]
+  },
+  {
+    "slug": "persuasive-closings",
+    "track": "Persuasion",
+    "title": "Closings People Remember",
+    "objective": "End with a comparison and one repeatable sentence, not a summary.",
+    "minutes": 4,
+    "nextLessonSlug": "cross-exam-questions",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "A closing is a verdict, not a recap",
+        "body": "Weak closings list everything said. Strong closings tell the judge how to decide: \"If you believe X, we win; and here is why you should believe X.\" Frame the choice between two worlds and make yours concrete."
+      },
+      {
+        "kind": "explain",
+        "heading": "The one repeatable sentence",
+        "body": "Judges deliberate with whatever survives in memory. Give them one sentence that captures your decisive reason — vivid, short, and honest. \"Defaults decide what millions see; we simply hand that decision back\" travels further than a minute of restated points."
+      },
+      {
+        "kind": "question",
+        "prompt": "Which is the strongest closing line for a school-phone-ban debate (For)?",
+        "choices": [
+          "Six hours of attention a day is the one thing schools can still give every child — we give it back",
+          "In conclusion, we made three arguments which I will now repeat",
+          "The other side was wrong about everything",
+          "Phones are bad, thank you"
+        ],
+        "answerIndex": 0,
+        "explanation": "It's concrete, comparative and repeatable. Recaps waste the final impression; insults cost credibility; bare assertions weigh nothing."
+      },
+      {
+        "kind": "question",
+        "prompt": "Emotional appeals in a closing are:",
+        "choices": [
+          "Legitimate when tied to real stakeholders your analysis already proved are affected",
+          "Always manipulation and must be avoided",
+          "A replacement for weighing",
+          "Only for beginner audiences"
+        ],
+        "answerIndex": 0,
+        "explanation": "Emotion earned by analysis is persuasion; emotion instead of analysis is manipulation. Judges — human and AI — score the difference."
+      }
+    ]
+  },
+  {
+    "slug": "cross-exam-questions",
+    "track": "Cross-examination",
+    "title": "Questions That Corner",
+    "objective": "Ask short questions that force commitments you can use later.",
+    "minutes": 5,
+    "nextLessonSlug": "bp-basics",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Questions are traps, not speeches",
+        "body": "Cross-examination isn't a chance to lecture with a question mark at the end. Ask short, closed questions that force your opponent to commit: to a number, a mechanism, or a trade-off. Then use the commitment in your next speech — an unused answer is a wasted question."
+      },
+      {
+        "kind": "explain",
+        "heading": "The commitment ladder",
+        "body": "Start narrow and factual (\"Does your plan apply to hospitals?\"), then force the trade-off (\"So nurses lose shift flexibility — is that a price you accept?\"). Two linked questions beat five scattered ones."
+      },
+      {
+        "kind": "question",
+        "prompt": "Which is the best cross-examination question?",
+        "choices": [
+          "What is the exact mechanism by which your ban reduces consumption?",
+          "Don't you agree your whole case is flawed?",
+          "Let me explain the seven reasons you're wrong — thoughts?",
+          "Why are you so confident?"
+        ],
+        "answerIndex": 0,
+        "explanation": "It demands a specific commitment they must defend for the rest of the round. The others invite speeches, provoke, or ask about feelings."
+      },
+      {
+        "kind": "question",
+        "prompt": "Your opponent concedes under questioning that their policy exempts small firms. You should:",
+        "choices": [
+          "Use it in your next speech to show most of the harm they claim to fix continues",
+          "Move on — the concession speaks for itself",
+          "Celebrate immediately",
+          "Ask the same question again for emphasis"
+        ],
+        "answerIndex": 0,
+        "explanation": "Concessions only score when connected to the round's decisive comparison. The judge needs you to say why the exemption guts their impact."
+      }
+    ]
+  },
+  {
+    "slug": "bp-basics",
+    "track": "British Parliamentary",
+    "title": "British Parliamentary in Ten Minutes",
+    "objective": "Know the four teams, eight speakers, and what \"extension\" means.",
+    "minutes": 7,
+    "nextLessonSlug": "speaking-under-pressure",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Four teams, one motion",
+        "body": "BP has four teams of two: Opening Government, Opening Opposition, Closing Government, Closing Opposition. All four are ranked against each other — you can 'win' from any position, including by beating the team on your own side."
+      },
+      {
+        "kind": "explain",
+        "heading": "The extension",
+        "body": "Closing teams must add something new — an 'extension': a fresh argument, a deeper mechanism, or new weighing. Repeating your opening team's case scores nothing. The best extensions reframe what the round is really about."
+      },
+      {
+        "kind": "question",
+        "prompt": "You're Closing Government. Opening Government already made the economic case well. You should:",
+        "choices": [
+          "Extend with a distinct argument — say, the social or rights-based case — plus round-level weighing",
+          "Repeat the economic case with better delivery",
+          "Attack Opening Government to look independent",
+          "Concede to Opening Opposition"
+        ],
+        "answerIndex": 0,
+        "explanation": "The extension must be genuinely new material that closes the round. You support your bench while outshining it — never by attacking it directly."
+      },
+      {
+        "kind": "question",
+        "prompt": "Points of Information (POIs) are:",
+        "choices": [
+          "Short interjections offered during opposing speeches, which speakers should take one or two of",
+          "Written notes passed to the judge",
+          "Only allowed in the final speech",
+          "A way to run out the opponent's clock by force"
+        ],
+        "answerIndex": 0,
+        "explanation": "POIs are 15-second interventions the speaker may accept or wave down. Taking one or two and answering crisply signals command of the round."
+      }
+    ]
+  },
+  {
+    "slug": "speaking-under-pressure",
+    "track": "Public speaking",
+    "title": "Speaking Under Pressure",
+    "objective": "Turn nerves into pace control and recover cleanly from losing your thread.",
+    "minutes": 4,
+    "nextLessonSlug": "boardroom-persuasion",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Nerves are fuel with bad steering",
+        "body": "Adrenaline speeds you up; audiences read speed as panic. The counter-move is mechanical, not psychological: plant your feet, breathe out fully before you begin, and deliver your first sentence slower than feels natural. Control of the first ten seconds buys the rest."
+      },
+      {
+        "kind": "explain",
+        "heading": "The recovery move",
+        "body": "When you lose your thread, don't apologise or restart. Bridge: repeat your last point's impact in different words while your structure reloads — \"...and that is exactly why families come out ahead. Which brings me to my second argument.\" Judges barely notice a confident bridge."
+      },
+      {
+        "kind": "question",
+        "prompt": "You blank completely mid-speech. Best recovery?",
+        "choices": [
+          "Restate your previous impact, then move to your next numbered point",
+          "Apologise and start the speech again",
+          "Stand silent until it returns",
+          "Admit you forgot and ask the judge for help"
+        ],
+        "answerIndex": 0,
+        "explanation": "The bridge keeps authority intact and gives your memory a familiar landmark — your own structure — to reboot from."
+      },
+      {
+        "kind": "question",
+        "prompt": "The most effective slow-down technique is:",
+        "choices": [
+          "Pausing deliberately at full stops, especially before key lines",
+          "Adding filler words to stretch time",
+          "Reading directly from notes",
+          "Speaking quietly"
+        ],
+        "answerIndex": 0,
+        "explanation": "Pauses create emphasis and thinking room without diluting content. Fillers and reading kill the connection pauses create."
+      }
+    ]
+  },
+  {
+    "slug": "boardroom-persuasion",
+    "track": "Professional communication",
+    "title": "Persuasion Beyond the Podium",
+    "objective": "Apply debate structure to meetings, pitches and negotiations.",
+    "minutes": 5,
+    "nextLessonSlug": "framing-the-clash",
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Meetings are unjudged debates",
+        "body": "A pitch is an opening speech; an objection is rebuttal; a negotiation is weighing. The same chain applies: claim, mechanism, example, impact — except your 'judge' is a decision-maker with ten other things on their mind, so lead with the impact."
+      },
+      {
+        "kind": "explain",
+        "heading": "Answer the strongest objection first",
+        "body": "In professional settings, unaddressed objections don't get speeches — they get silent vetoes. Name the strongest objection to your own proposal before anyone else does, answer it, and you remove its power while earning trust."
+      },
+      {
+        "kind": "question",
+        "prompt": "Opening a budget request to a distracted executive, lead with:",
+        "choices": [
+          "The impact: what the money returns and by when",
+          "The full history of the project",
+          "Your methodology",
+          "An apology for taking their time"
+        ],
+        "answerIndex": 0,
+        "explanation": "Executives triage by impact. History and methodology are supporting material for after you've earned attention — apology spends credibility for nothing."
+      },
+      {
+        "kind": "question",
+        "prompt": "Pre-empting your proposal's weakest point (\"steelmanning the objection\") works because:",
+        "choices": [
+          "It removes the objection's surprise value and signals you've thought it through",
+          "It fills time",
+          "It confuses opponents",
+          "It lowers expectations"
+        ],
+        "answerIndex": 0,
+        "explanation": "Objections are most powerful when they appear to have been hidden. Raising and answering them yourself converts a vulnerability into evidence of rigour."
+      }
+    ]
+  },
+  {
+    "slug": "framing-the-clash",
+    "track": "Strategy",
+    "title": "Framing: Deciding What the Round Is About",
+    "objective": "Set the decision rule early so every later argument lands on your terms.",
+    "minutes": 6,
+    "nextLessonSlug": null,
+    "steps": [
+      {
+        "kind": "explain",
+        "heading": "Whoever frames, wins",
+        "body": "Before arguments clash, frames clash: is this round about freedom or safety? Cost or fairness? The side that establishes the decision rule — \"this debate is decided by which side protects the most vulnerable\" — makes every subsequent argument play on home turf."
+      },
+      {
+        "kind": "explain",
+        "heading": "Contesting a frame",
+        "body": "Never silently accept the opponent's frame. Either broaden it (\"safety matters, but so does who pays for it\"), replace it with justification (\"the real question is X, because...\"), or capture it (\"under their own frame, we still win\"). Capturing is the most devastating — and hardest."
+      },
+      {
+        "kind": "question",
+        "prompt": "Opponent frames a surveillance debate as \"safety versus privacy — and safety wins.\" The strongest response?",
+        "choices": [
+          "Capture it: show mass surveillance fails to deliver the safety they promise",
+          "Ignore the frame and list your own points",
+          "Accept the frame and argue privacy anyway",
+          "Complain that framing is unfair"
+        ],
+        "answerIndex": 0,
+        "explanation": "Winning inside their own frame leaves them nowhere to retreat. Ignoring frames means the judge decides by their rule — with your arguments orphaned outside it."
+      },
+      {
+        "kind": "question",
+        "prompt": "A decision rule should be introduced:",
+        "choices": [
+          "In your opening, with a justification for why it's the fair test",
+          "Only in the closing, as a surprise",
+          "Never explicitly",
+          "Only if the opponent introduces one first"
+        ],
+        "answerIndex": 0,
+        "explanation": "Early framing shapes how the judge files every later argument. A closing-speech frame arrives after the filing cabinet is full."
+      }
+    ]
+  }
+]

@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/*
+ * Debates.ch design tokens.
+ * Semantic tokens (spec §7.1) live on :root; the @theme block maps them to
+ * Tailwind utilities. See docs/DESIGN_SYSTEM.md for the mapping table.
+ */
+:root {
+  /* Tuned to sit closer to chess.com's deep neutrals + signature green. */
+  --background: #262421;
+  --surface-1: #302e2b;
+  --surface-2: #3a3835;
+  --surface-3: #454340;
+  --surface-hover: #55524e;
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2c1;
+  --text-tertiary: #989795;
+  --brand: #81b64c;
+  --brand-hover: #93c95d;
+  --brand-edge: #537d33;
+  --brand-deep: #769656;
+  --neutral-light: #eeeed2;
+  --success: #81b64c;
+  --warning: #e3a83d;
+  --danger: #e0614f;
+  --info: #64a8dc;
+  /* Light "board" surfaces for contrast panels. */
+  --board-light: #f4f3ee;
+  --board-light-2: #e8e6dd;
+  --board-ink: #2b2a27;
+  --board-ink-muted: #6b6963;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-hover: var(--surface-hover);
+  --color-border-subtle: var(--border-subtle);
+  --color-fg: var(--text-primary);
+  --color-fg-muted: var(--text-secondary);
+  --color-fg-faint: var(--text-tertiary);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-edge: var(--brand-edge);
+  --color-brand-deep: var(--brand-deep);
+  --color-cream: var(--neutral-light);
+  --color-board: var(--board-light);
+  --color-board-2: var(--board-light-2);
+  --color-ink: var(--board-ink);
+  --color-ink-muted: var(--board-ink-muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Light theme (settings toggle) — the same tokens, inverted surfaces. */
+:root[data-theme="light"] {
+  --background: #f7f6f2;
+  --surface-1: #ffffff;
+  --surface-2: #efeee9;
+  --surface-3: #e3e1da;
+  --surface-hover: #d8d5cc;
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --text-primary: #26241f;
+  --text-secondary: #55524c;
+  --text-tertiary: #7d7a73;
+  --brand: #6a9c3d;
+  --brand-hover: #7aae4a;
+  --brand-edge: #4a7029;
+  --neutral-light: #eeeed2;
+  --board-light: #ffffff;
+  --board-light-2: #eceae3;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Timers, ratings and stat numbers must align vertically. */
+.numeric {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@keyframes speaking-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.speaking-pulse {
+  animation: speaking-pulse 1.4s ease-in-out infinite;
+}
+
+/* Mascots gently bob so the page feels alive. */
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-7px) rotate(2deg); }
+}
+
+.mascot-bob {
+  animation: mascot-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.pop-in {
+  animation: pop-in 0.35s ease-out both;
+}
+
+/* Cartoon avatar mouth movement while a bot is speaking. */
+@keyframes mouth-talk {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+.mouth-talk {
+  animation: mouth-talk 0.32s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* Emphatic hand gestures while speaking. */
+@keyframes hand-gesture {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(-9deg); }
+  60% { transform: translateY(1px) rotate(5deg); }
+}
+
+.hand-gesture {
+  animation: hand-gesture 0.85s ease-in-out infinite;
+}
+
+/* Exaggerated brow movement for expressive characters. */
+@keyframes brow-waggle {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-2.5px); }
+  65% { transform: translateY(1.5px); }
+}
+
+.brow-waggle {
+  animation: brow-waggle 0.7s ease-in-out infinite;
+  transform-box: fill-box;
+}
+
+/* Results-screen celebration. */
+@keyframes celebrate-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(540deg); opacity: 0; }
+}
+
+.celebrate-fall {
+  animation-name: celebrate-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}

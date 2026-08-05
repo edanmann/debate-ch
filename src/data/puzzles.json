@@ -1,0 +1,322 @@
+[
+  {
+    "id": "p-001",
+    "type": "strongest-rebuttal",
+    "skill": "rebuttal",
+    "category": "Education",
+    "difficulty": 1,
+    "prompt": "Opponent: \"Homework must stay, because students who do homework get better grades.\" Pick the strongest rebuttal.",
+    "context": "Motion: This House would ban homework in primary school.",
+    "choices": [
+      { "text": "That's correlation: diligent students both do homework and get good grades — the homework may add nothing.", "explanation": "Correct — it attacks the causal inference at the heart of the argument, the load-bearing premise." },
+      { "text": "Grades aren't everything.", "explanation": "True but vague — it shifts ground without disputing their claim, and concedes their evidence." },
+      { "text": "Some students dislike homework.", "explanation": "Preference isn't a counter to an achievement claim; it's a different, weaker argument." },
+      { "text": "Teachers assign too much homework anyway.", "explanation": "A quantity complaint accepts homework's value and argues only about dosage — off-clash." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-002",
+    "type": "strongest-rebuttal",
+    "skill": "rebuttal",
+    "category": "Technology",
+    "difficulty": 2,
+    "prompt": "Opponent: \"AI content labels will fix misinformation, because people will simply distrust what's labelled.\" Strongest rebuttal?",
+    "context": "Motion: This House would require AI-generated content to carry a visible label.",
+    "choices": [
+      { "text": "The danger inverts: unlabelled fakes gain a false stamp of authenticity, so partial enforcement makes deception more effective.", "explanation": "Correct — a turn: their mechanism, incompletely enforced, produces the opposite of their promised impact." },
+      { "text": "Labels are ugly.", "explanation": "An aesthetic quibble that no judge weighs against a misinformation impact." },
+      { "text": "Some people ignore labels.", "explanation": "Mitigation only — it shrinks their impact but concedes the mechanism's direction." },
+      { "text": "AI companies will complain.", "explanation": "Stakeholder displeasure isn't an argument about whether the policy works." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-003",
+    "type": "missing-mechanism",
+    "skill": "argumentation",
+    "category": "Environment",
+    "difficulty": 1,
+    "prompt": "\"Banning single-use plastics will save the oceans.\" Which mechanism step is missing?",
+    "context": null,
+    "choices": [
+      { "text": "How a national ban changes the (mostly non-domestic) sources of ocean plastic", "explanation": "Correct — the chain from local ban to global ocean outcomes is asserted, not shown; most marine plastic enters via a few river systems." },
+      { "text": "A definition of 'plastic'", "explanation": "Reasonable definitions are assumed in ordinary debate; this isn't the gap a judge cares about." },
+      { "text": "The name of the ocean being saved", "explanation": "Specificity theatre — not a causal step." },
+      { "text": "A celebrity endorsement", "explanation": "Endorsements are not mechanisms." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-004",
+    "type": "missing-mechanism",
+    "skill": "argumentation",
+    "category": "Economics",
+    "difficulty": 2,
+    "prompt": "\"A four-day week will boost the economy because happier workers are more productive.\" What must still be proven?",
+    "context": null,
+    "choices": [
+      { "text": "That the productivity gain is large enough to offset losing 20% of working hours", "explanation": "Correct — the argument needs magnitude, not just direction. A real gain that's too small still sinks the case." },
+      { "text": "That workers would enjoy a three-day weekend", "explanation": "Safely assumed — and not where the case can fail." },
+      { "text": "That economies exist", "explanation": "Not in dispute." },
+      { "text": "That some firms already tried it", "explanation": "Trials support the claim but don't bridge the hours-versus-productivity arithmetic." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-005",
+    "type": "logical-fallacy",
+    "skill": "argumentation",
+    "category": "Politics",
+    "difficulty": 1,
+    "prompt": "\"My opponent isn't even old enough to vote, so you can ignore her case for lowering the voting age.\" Which fallacy?",
+    "context": null,
+    "choices": [
+      { "text": "Ad hominem — attacking the speaker instead of the argument", "explanation": "Correct — the speaker's age says nothing about whether her mechanism and evidence hold. If anything, she has relevant standing." },
+      { "text": "Slippery slope", "explanation": "No chain of escalating consequences was claimed." },
+      { "text": "False dilemma", "explanation": "No forced either/or choice appears here." },
+      { "text": "Straw man", "explanation": "The argument wasn't misrepresented — it was bypassed entirely for the person." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-006",
+    "type": "logical-fallacy",
+    "skill": "argumentation",
+    "category": "Media",
+    "difficulty": 2,
+    "prompt": "\"Either we hold platforms fully liable for every post, or we accept a lawless internet. Since lawlessness is unacceptable, full liability it is.\" Which fallacy?",
+    "context": null,
+    "choices": [
+      { "text": "False dilemma — intermediate liability regimes are excluded by assertion", "explanation": "Correct — notice-and-takedown, amplification-only liability and safe-harbour conditions all exist between the two poles." },
+      { "text": "Appeal to authority", "explanation": "No authority was invoked." },
+      { "text": "Circular reasoning", "explanation": "The conclusion isn't smuggled into a premise; a premise (only two options) is simply false." },
+      { "text": "Post hoc", "explanation": "No temporal-causation confusion appears." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-007",
+    "type": "best-evidence",
+    "skill": "evidence",
+    "category": "Education",
+    "difficulty": 1,
+    "prompt": "You argue school phone bans improve focus. Which single piece of evidence helps most?",
+    "context": null,
+    "choices": [
+      { "text": "A multi-school study measuring test scores before and after bans, with comparison schools", "explanation": "Correct — it measures the claimed outcome with a control group, directly supporting causation." },
+      { "text": "A viral video of students on phones in class", "explanation": "Vivid, but proves phones are used — not that banning them improves focus." },
+      { "text": "Your own school experience", "explanation": "An anecdote can illustrate a proven mechanism, but can't establish one." },
+      { "text": "Total smartphone sales figures", "explanation": "Measures market size, not classroom attention — impressive-sounding irrelevance." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-008",
+    "type": "best-evidence",
+    "skill": "evidence",
+    "category": "Environment",
+    "difficulty": 3,
+    "prompt": "Defending nuclear expansion on safety, your strongest statistic is:",
+    "context": "Motion: This House would expand nuclear power as the core of the energy transition.",
+    "choices": [
+      { "text": "Deaths per terawatt-hour across energy sources, where nuclear ranks among the safest", "explanation": "Correct — it normalises risk per unit of energy, the honest comparison, and directly answers the safety objection." },
+      { "text": "The count of reactors that have never had an accident", "explanation": "Survivorship framing — it hides base rates and invites the obvious Chernobyl/Fukushima reply." },
+      { "text": "Uranium's market price", "explanation": "A cost datum aimed at a safety clash — wrong target." },
+      { "text": "Public opinion polls on nuclear fear", "explanation": "Measures perception of risk, which is precisely what you're arguing is miscalibrated." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-009",
+    "type": "improve-argument",
+    "skill": "delivery",
+    "category": "Everyday life",
+    "difficulty": 1,
+    "prompt": "Improve this: \"Remote work is good. People like it. Also it saves money. And traffic is better. So it's good.\"",
+    "context": null,
+    "choices": [
+      { "text": "Pick one claim, add its mechanism and a named impact: \"Remote work returns the commute — over 200 hours a year — to workers, which is why retention rises where it's offered.\"", "explanation": "Correct — one developed chain with a quantified impact beats four asserted fragments." },
+      { "text": "Add three more benefits to the list", "explanation": "More fragments deepen the core weakness: nothing is developed." },
+      { "text": "Say 'it's good' with more conviction", "explanation": "Confidence without mechanism is delivery polishing a hollow shell." },
+      { "text": "Replace 'good' with 'excellent'", "explanation": "A thesaurus is not an argument." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-010",
+    "type": "improve-argument",
+    "skill": "delivery",
+    "category": "Business",
+    "difficulty": 2,
+    "prompt": "This opening buries its structure: \"So, um, there are various considerations, and I'll touch on several themes that interconnect...\" Fix it.",
+    "context": null,
+    "choices": [
+      { "text": "\"We win this round for two reasons: accountability and incentives. First, accountability...\"", "explanation": "Correct — a numbered preview gives the judge a map before the journey; every later sentence now has an address." },
+      { "text": "\"There are many nuanced perspectives worth exploring at length...\"", "explanation": "Restates the vagueness with better vocabulary." },
+      { "text": "Skip the preview and dive into details", "explanation": "Detail without a map is where judges get lost — and lost judges don't award content they couldn't track." },
+      { "text": "\"As I will explain later...\" repeated throughout", "explanation": "Promissory notes aren't structure; they defer it." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-011",
+    "type": "cross-exam-question",
+    "skill": "rebuttal",
+    "category": "Economics",
+    "difficulty": 2,
+    "prompt": "Opponent proposes UBI funded by \"closing tax loopholes.\" Your most decisive cross-examination question?",
+    "context": null,
+    "choices": [
+      { "text": "\"What is your estimate of loophole revenue, and what fraction of the UBI bill does it cover?\"", "explanation": "Correct — it forces a numerical commitment their case must then survive; any answer helps you." },
+      { "text": "\"Don't you think UBI is lazy policy?\"", "explanation": "An insult with a question mark — invites a speech, commits them to nothing." },
+      { "text": "\"Have you personally read the tax code?\"", "explanation": "Ad hominem credentials-check; the judge learns nothing about the case." },
+      { "text": "\"Isn't funding complicated?\"", "explanation": "They'll agree and move on — no commitment extracted." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-012",
+    "type": "cross-exam-question",
+    "skill": "strategy",
+    "category": "Politics",
+    "difficulty": 3,
+    "prompt": "Opponent defends compulsory voting as \"making democracy representative.\" Which question sets up your next speech best?",
+    "context": null,
+    "choices": [
+      { "text": "\"Is a ballot cast to avoid a fine an expression of political will, or of fine-avoidance?\"", "explanation": "Correct — either answer serves you: 'political will' is implausible; 'fine-avoidance' concedes the coerced-noise argument you're about to run." },
+      { "text": "\"Which countries have compulsory voting?\"", "explanation": "A facts quiz they can answer well — you've handed them a stage." },
+      { "text": "\"Why do you hate freedom?\"", "explanation": "Provocation reads as desperation and yields nothing usable." },
+      { "text": "\"Can you define democracy?\"", "explanation": "Definition-fishing without a trap planned; expect a competent answer and lost seconds." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-013",
+    "type": "rank-impacts",
+    "skill": "strategy",
+    "category": "Ethics",
+    "difficulty": 2,
+    "prompt": "You're For \"ban junk-food sponsorship of sport.\" Which impact should headline your case?",
+    "context": null,
+    "choices": [
+      { "text": "Reduced childhood exposure to health-halo marketing at population scale", "explanation": "Correct — largest magnitude, clearest link to the policy, and hardest for the opposition to outweigh." },
+      { "text": "Stadium aesthetics improve without garish logos", "explanation": "Trivial magnitude; leading with it signals a weak case." },
+      { "text": "Rival snack brands gain market share", "explanation": "Distributional shuffle, not a social gain — and off-message for a health case." },
+      { "text": "Sponsorship lawyers get more work", "explanation": "A transition cost dressed as an impact." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-014",
+    "type": "rank-impacts",
+    "skill": "strategy",
+    "category": "International relations",
+    "difficulty": 3,
+    "prompt": "Against \"rotational Security Council membership,\" which impact do you lead with?",
+    "context": null,
+    "choices": [
+      { "text": "Great powers abandoning the Council collapses the one forum that restrains them at all", "explanation": "Correct — an irreversibility-plus-magnitude impact that frames reform as destroying the institution it claims to fix." },
+      { "text": "Diplomats would need to relearn procedures", "explanation": "Administrative friction — no judge weighs this against legitimacy claims." },
+      { "text": "The UN building would need new nameplates", "explanation": "Facetious; including it damages your credibility." },
+      { "text": "Some current members would be annoyed", "explanation": "Annoyance is not an impact unless you show what the annoyed do next — which is choice A, done properly." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-015",
+    "type": "central-clash",
+    "skill": "strategy",
+    "category": "Technology",
+    "difficulty": 2,
+    "prompt": "In the algorithmic-feed debate, For argues user autonomy; Against argues ranked feeds filter harm. The central clash is:",
+    "context": "Motion: This House would require social-media platforms to offer a non-algorithmic feed by default.",
+    "choices": [
+      { "text": "Who should hold default power over attention — users by right, or platforms by competence?", "explanation": "Correct — both cases are downstream of this question; the side that wins it wins the round." },
+      { "text": "Whether algorithms exist", "explanation": "Undisputed by both sides — no clash." },
+      { "text": "Which platform has the best engineers", "explanation": "Neither side's case depends on engineering league tables." },
+      { "text": "Whether social media is enjoyable", "explanation": "Adjacent mood, not the collision point of the two cases." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-016",
+    "type": "central-clash",
+    "skill": "rebuttal",
+    "category": "Culture",
+    "difficulty": 2,
+    "prompt": "Artefact repatriation: For argues unjust acquisition voids title; Against argues universal museums maximise access and preservation. The clash?",
+    "context": null,
+    "choices": [
+      { "text": "Whether historical justice or present-day utility should govern ownership", "explanation": "Correct — every sub-argument (looting, loans, conservation, tourism) feeds this single collision." },
+      { "text": "Whether museums should charge entry", "explanation": "A pricing question orthogonal to ownership." },
+      { "text": "Which country has better display cases", "explanation": "A conservation detail both sides can solve; not decisive." },
+      { "text": "Whether history is interesting", "explanation": "Not in contention." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-017",
+    "type": "repair-definition",
+    "skill": "strategy",
+    "category": "Everyday life",
+    "difficulty": 1,
+    "prompt": "For \"ban smartphones in schools,\" your teammate defines it as \"all devices with screens, including laptops, forever.\" Repair it.",
+    "context": null,
+    "choices": [
+      { "text": "\"Personal phones stored during lesson hours, with medical and accessibility exemptions\"", "explanation": "Correct — defensible scope that preserves your mechanism while shedding the laptop-ban albatross the opposition would feast on." },
+      { "text": "\"Only phones we personally consider distracting\"", "explanation": "Subjective scope invites the 'who decides?' attack and looks evasive." },
+      { "text": "Keep the broad definition and defend laptops too", "explanation": "Voluntarily defending the weakest possible version of your own motion is strategic self-harm." },
+      { "text": "\"Phones, but only on Tuesdays\"", "explanation": "Arbitrary scope with no mechanism — parody of a definition." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-018",
+    "type": "repair-definition",
+    "skill": "argumentation",
+    "category": "Economics",
+    "difficulty": 3,
+    "prompt": "Opponent defines \"frequent flyer\" as \"anyone who flies at all\" to make your progressive levy look like a total flight tax. Your repair?",
+    "context": "Motion: This House would tax frequent flying at sharply progressive rates.",
+    "choices": [
+      { "text": "\"The levy starts at the second flight per year and escalates — the median flyer pays nothing, which is the entire design\"", "explanation": "Correct — re-anchors the definition in the motion's own wording ('progressive') and converts their straw man into your fairness argument." },
+      { "text": "Accept their definition to avoid a definitions fight", "explanation": "You'd spend the round defending a policy nobody proposed." },
+      { "text": "\"Definitions don't matter, let's talk values\"", "explanation": "Definitions decide what you must prove; waving them off cedes that decision." },
+      { "text": "Refuse to engage until they apologise", "explanation": "Theatrics; the judge just sees the straw man standing unanswered." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-019",
+    "type": "closing-comparison",
+    "skill": "persuasion",
+    "category": "Education",
+    "difficulty": 2,
+    "prompt": "Closing For \"pay students to finish school.\" The strongest final comparison:",
+    "context": null,
+    "choices": [
+      { "text": "\"Their world protects the principle that learning shouldn't be paid for; ours pays a small stipend and graduates thousands who'd otherwise drop out. Principles don't sign diplomas.\"", "explanation": "Correct — two worlds, one concrete comparative, one repeatable line. This is what judges carry into deliberation." },
+      { "text": "\"We made strong arguments about incentives, evidence and fairness, as I'll now re-list\"", "explanation": "A table of contents, not a verdict." },
+      { "text": "\"Education is the future\"", "explanation": "A greeting-card line both sides could deliver — zero comparative work." },
+      { "text": "\"My opponent never understood the motion\"", "explanation": "Closing on an insult converts your final impression into pettiness." }
+    ],
+    "answerIndex": 0
+  },
+  {
+    "id": "p-020",
+    "type": "closing-comparison",
+    "skill": "persuasion",
+    "category": "Media",
+    "difficulty": 3,
+    "prompt": "Closing Against \"platform liability for amplified content.\" Your best comparative close:",
+    "context": null,
+    "choices": [
+      { "text": "\"They promise accountability but deliver deletion: faced with ruinous liability, platforms won't judge speech — they'll remove it. Our world keeps both the internet and the lawsuits that matter; theirs keeps neither.\"", "explanation": "Correct — it grants their goal, shows their mechanism betrays it, and lands a memorable both-worlds comparison." },
+      { "text": "\"Regulation is always bad\"", "explanation": "An ideological blanket that ignores the round's actual material." },
+      { "text": "\"As I said in my opening...\" followed by the opening", "explanation": "Verbatim recap surrenders the closing's unique job: comparison." },
+      { "text": "\"The internet is complicated, so vote Against\"", "explanation": "Complexity is a reason to think, not a reason to vote for you." }
+    ],
+    "answerIndex": 0
+  }
+]
