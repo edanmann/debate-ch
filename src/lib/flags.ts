@@ -14,7 +14,7 @@ export const FLAGS = {
   /** Instant public matchmaking — waitlist only for now. */
   publicMatchmaking: env("PUBLIC_MATCHMAKING", false),
   /** Live audio/video in the debate room. Text mode is the MVP. */
-  liveVideo: env("LIVE_VIDEO", false),
+  liveVideo: env("LIVE_VIDEO", true),
   /** Real live-streamed debates in Watch. Seeded replays otherwise. */
   liveWatch: env("LIVE_WATCH", false),
   /** Call real AI providers instead of the mock runtime. */

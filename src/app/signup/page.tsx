@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signUp } from "@/lib/auth/client";
+import { DEFAULT_COACH_SLUG } from "@/lib/coach";
 import { updateState, useAppState } from "@/lib/store";
 import { buttonClass, Card } from "@/components/ui";
 
@@ -25,7 +26,7 @@ export default function SignupPage() {
         email: trimmed,
         country: "",
         avatar: null,
-        coachSlug: null,
+        coachSlug: DEFAULT_COACH_SLUG,
         celebration: "confetti",
         createdAt: Date.now(),
       },

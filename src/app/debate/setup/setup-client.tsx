@@ -91,7 +91,8 @@ function Setup({ bot }: { bot: BotCardData }) {
           <section>
             <h2 className="font-bold">Mode</h2>
             <p className="text-sm text-fg-muted">
-              Debates are spoken. You&apos;ll need a microphone.
+              Debates are spoken either way. Video also turns your camera on;
+              audio shows your cartoon debater instead.
             </p>
             <div className="mt-2 flex flex-wrap gap-2">
               <button
@@ -117,7 +118,7 @@ function Setup({ bot }: { bot: BotCardData }) {
                     : "border-border-subtle text-fg-faint"
                 }`}
               >
-                📹 Video {FLAGS.liveVideo ? "" : "— coming soon"}
+                📹 Video
               </button>
             </div>
             <button

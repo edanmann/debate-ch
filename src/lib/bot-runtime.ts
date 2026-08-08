@@ -1,4 +1,5 @@
 import { presentationFor } from "./bot-presentation";
+import { quirkFor } from "./bot-reviews";
 import type {
   BotProfile,
   DebateSide,
@@ -179,6 +180,10 @@ export function generateBotTurn(input: BotTurnInput): string {
   }
 
   parts.push(maybeTrashTalk(bot, seed, phaseId).trim());
+
+  // A character's signature aside, sparingly — roughly one speech in four.
+  const quirk = quirkFor(bot.slug);
+  if (quirk && hash(seed + "quirk") % 4 === 0) parts.push(quirk);
 
   let text = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
 

@@ -15,6 +15,19 @@ export interface VoiceProfile {
   /** Preferred BCP-47 tag when picking among installed voices. */
   lang?: string;
   gender: "m" | "f" | "n";
+  /**
+   * Preferred system-voice names, best first. This is what keeps two speakers
+   * of the same locale sounding like different people. Unavailable names fall
+   * through to the locale-scored pick, so it degrades safely across devices.
+   */
+  voiceNames?: string[];
+  /** Multiplies the gap between sentences: >1 is a slower, weightier delivery. */
+  pauseScale?: number;
+  /**
+   * Provider preset used when neural TTS is configured. These are stock
+   * provider voices picked to suit the character — never voice clones.
+   */
+  neuralVoice?: string;
 }
 
 export interface BotPresentation {
@@ -24,24 +37,27 @@ export interface BotPresentation {
   trashTalk?: string[];
 }
 
-const male = (pitch = 0.95, rate = 1, lang?: string): VoiceProfile => ({
-  pitch,
-  rate,
-  lang,
-  gender: "m",
-});
-const female = (pitch = 1.15, rate = 1, lang?: string): VoiceProfile => ({
-  pitch,
-  rate,
-  lang,
-  gender: "f",
-});
+const male = (
+  pitch = 0.95,
+  rate = 1,
+  lang?: string,
+  voiceNames?: string[],
+  pauseScale?: number
+): VoiceProfile => ({ pitch, rate, lang, gender: "m", voiceNames, pauseScale });
+
+const female = (
+  pitch = 1.15,
+  rate = 1,
+  lang?: string,
+  voiceNames?: string[],
+  pauseScale?: number
+): VoiceProfile => ({ pitch, rate, lang, gender: "f", voiceNames, pauseScale });
 
 export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   // ---- Fictional progression ----------------------------------------------
   raj: {
     flag: "🇮🇳",
-    voice: male(0.85, 0.92, "en-IN"),
+    voice: { ...male(0.88, 0.92, "en-IN", ["Rishi"], 1.2), neuralVoice: "echo" },
     avatar: {
       skin: "#b07a4e",
       hair: "receding",
@@ -59,7 +75,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   rian: {
     flag: "🇨🇭",
-    voice: male(1.05, 1.08, "en-IE"),
+    voice: { ...male(1.06, 1.14, "de-DE", [], 0.75), neuralVoice: "verse" },
     avatar: {
       expressive: true,
       skin: "#f0c9a6",
@@ -74,7 +90,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   zak: {
     flag: "🇲🇦",
-    voice: male(0.95, 1.02),
+    voice: { ...male(0.96, 1.0, "en-GB", ["Reed"], 1.0), neuralVoice: "ash" },
     avatar: {
       skin: "#f0c9a6",
       hair: "curly",
@@ -89,7 +105,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   mia: {
     flag: "🇸🇪",
-    voice: female(1.2, 1.02),
+    voice: { ...female(1.2, 1.0, "sv-SE", [], 1.1), neuralVoice: "nova" },
     avatar: {
       skin: "#edbf9a",
       hair: "bob",
@@ -104,7 +120,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   valentin: {
     flag: "🇷🇴",
-    voice: male(0.95, 0.98),
+    voice: { ...male(0.94, 0.96, "ro-RO", [], 1.15), neuralVoice: "alloy" },
     avatar: {
       skin: "#e9bd94",
       hair: "side-part",
@@ -117,7 +133,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   alex: {
     flag: "🇺🇸",
-    voice: male(1.0, 1.05),
+    voice: { ...male(1.0, 1.06, "en-US", ["Rocko"], 0.95), neuralVoice: "ash" },
     avatar: {
       skin: "#dfa878",
       hair: "curly",
@@ -130,7 +146,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   valentina: {
     flag: "🇮🇹",
-    voice: female(1.15, 1.0, "it-IT"),
+    voice: { ...female(1.16, 1.0, "it-IT", [], 1.05), neuralVoice: "coral" },
     avatar: {
       skin: "#e2ab7e",
       hair: "long",
@@ -144,7 +160,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   ehan: {
     flag: "🇦🇪",
-    voice: male(0.92, 1.0),
+    voice: { ...male(0.92, 0.98, "en-IN", ["Rishi"], 1.15), neuralVoice: "alloy" },
     avatar: {
       skin: "#c08a58",
       hair: "short",
@@ -158,7 +174,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   jack: {
     flag: "🇬🇧",
-    voice: male(0.98, 1.1, "en-GB"),
+    voice: { ...male(0.98, 1.14, "en-GB", ["Eddy"], 0.8), neuralVoice: "ash" },
     avatar: {
       skin: "#eec39c",
       hair: "crew",
@@ -173,7 +189,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   jan: {
     flag: "🇳🇱",
-    voice: male(0.9, 0.95, "nl-NL"),
+    voice: { ...male(0.9, 0.94, "nl-NL", [], 1.2), neuralVoice: "onyx" },
     avatar: {
       skin: "#f0cba8",
       hair: "slick-back",
@@ -186,7 +202,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   sophie: {
     flag: "🇫🇷",
-    voice: female(1.3, 1.15),
+    voice: { ...female(1.32, 1.2, "fr-FR", [], 0.65), neuralVoice: "coral" },
     avatar: {
       expressive: true,
       skin: "#eeb9a0",
@@ -208,7 +224,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "the-barrister": {
     flag: "🇬🇧",
-    voice: female(1.05, 0.95, "en-GB"),
+    voice: { ...female(1.04, 0.9, "en-GB", ["Martha"], 1.4), neuralVoice: "shimmer" },
     avatar: {
       skin: "#e6b78f",
       hair: "bob",
@@ -224,7 +240,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "the-professor": {
     flag: "🇬🇧",
-    voice: male(0.85, 0.88, "en-GB"),
+    voice: { ...male(0.84, 0.84, "en-GB", ["Daniel"], 1.55), neuralVoice: "onyx" },
     avatar: {
       skin: "#ecc4a1",
       hair: "bald-fringe",
@@ -242,7 +258,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "the-strategist": {
     flag: "🇺🇸",
-    voice: male(0.88, 0.98),
+    voice: { ...male(0.88, 0.94, "en-US", ["Aaron"], 1.3), neuralVoice: "echo" },
     avatar: {
       skin: "#d9a679",
       hair: "slick-back",
@@ -258,7 +274,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "the-diplomat": {
     flag: "🇨🇭",
-    voice: male(0.95, 0.9),
+    voice: { ...male(0.96, 0.88, "de-DE", [], 1.4), neuralVoice: "alloy" },
     avatar: {
       skin: "#c99367",
       hair: "side-part",
@@ -272,14 +288,14 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
     },
   },
   "debate-engine": {
-    voice: { pitch: 1.0, rate: 1.0, gender: "n" },
+    voice: { pitch: 1.0, rate: 1.0, gender: "n", pauseScale: 1.0, neuralVoice: "sage" },
     avatar: { robot: true } as AvatarConfig,
   },
 
   // ---- Business leaders ----------------------------------------------------
   "elon-musk": {
     flag: "🇺🇸",
-    voice: male(0.95, 1.02, "en-US"),
+    voice: { ...male(0.92, 0.88, "en-US", ["Eddy"], 1.6), neuralVoice: "ash" },
     avatar: {
       skin: "#ecc09a",
       hair: "short",
@@ -293,7 +309,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "mark-zuckerberg": {
     flag: "🇺🇸",
-    voice: male(1.05, 1.0, "en-US"),
+    voice: { ...male(1.06, 1.05, "en-US", ["Rocko"], 0.85), neuralVoice: "alloy" },
     avatar: {
       skin: "#f2cfae",
       hair: "crew",
@@ -306,7 +322,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "steve-jobs": {
     flag: "🇺🇸",
-    voice: male(0.92, 0.95, "en-US"),
+    voice: { ...male(0.94, 0.9, "en-US", ["Reed"], 1.45), neuralVoice: "echo" },
     avatar: {
       skin: "#ecc4a1",
       hair: "receding",
@@ -323,7 +339,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "warren-buffett": {
     flag: "🇺🇸",
-    voice: male(0.85, 0.88, "en-US"),
+    voice: { ...male(0.84, 0.84, "en-US", ["Grandpa", "Aaron"], 1.5), neuralVoice: "onyx" },
     avatar: {
       skin: "#f0cba8",
       hair: "receding",
@@ -341,7 +357,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   // ---- Politicians ---------------------------------------------------------
   "donald-trump": {
     flag: "🇺🇸",
-    voice: male(0.8, 0.9, "en-US"),
+    voice: { ...male(0.72, 0.8, "en-US", ["Aaron"], 1.55), neuralVoice: "onyx" },
     avatar: {
       gesture: "pinch",
       expressive: true,
@@ -359,7 +375,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "barack-obama": {
     flag: "🇺🇸",
-    voice: male(0.9, 0.9, "en-US"),
+    voice: { ...male(0.88, 0.82, "en-US", ["Reed"], 1.5), neuralVoice: "echo" },
     avatar: {
       skin: "#a06a42",
       hair: "crew",
@@ -373,7 +389,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "vladimir-putin": {
     flag: "🇷🇺",
-    voice: male(0.75, 0.85, "ru-RU"),
+    voice: { ...male(0.7, 0.8, "ru-RU", [], 1.35), neuralVoice: "onyx" },
     avatar: {
       skin: "#eec5a3",
       hair: "receding",
@@ -388,7 +404,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "zohran-mamdani": {
     flag: "🇺🇸",
-    voice: male(1.0, 1.05, "en-US"),
+    voice: { ...male(1.0, 1.06, "en-US", ["Rocko"], 0.95), neuralVoice: "verse" },
     avatar: {
       skin: "#b07a4e",
       hair: "short",
@@ -404,7 +420,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   fidias: {
     flag: "🇨🇾",
-    voice: male(1.1, 1.12),
+    voice: { ...male(1.12, 1.18, "el-GR", [], 0.75), neuralVoice: "verse" },
     avatar: {
       expressive: true,
       skin: "#e2ab7e",
@@ -421,7 +437,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "margaret-thatcher": {
     flag: "🇬🇧",
-    voice: female(1.0, 0.9, "en-GB"),
+    voice: { ...female(1.0, 0.86, "en-GB", ["Martha"], 1.3), neuralVoice: "shimmer" },
     avatar: {
       skin: "#f0cba8",
       hair: "bouffant",
@@ -438,7 +454,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "emmanuel-macron": {
     flag: "🇫🇷",
-    voice: male(0.98, 1.0, "fr-FR"),
+    voice: { ...male(0.98, 1.0, "fr-FR", [], 1.0), neuralVoice: "alloy" },
     avatar: {
       skin: "#eec39c",
       hair: "side-part",
@@ -454,7 +470,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   // ---- Football icons ------------------------------------------------------
   "cristiano-ronaldo": {
     flag: "🇵🇹",
-    voice: male(1.0, 1.05, "pt-PT"),
+    voice: { ...male(1.02, 1.04, "pt-PT", [], 1.0), neuralVoice: "ash" },
     avatar: {
       expressive: true,
       skin: "#d9a679",
@@ -470,7 +486,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "zlatan-ibrahimovic": {
     flag: "🇸🇪",
-    voice: male(0.85, 0.95, "sv-SE"),
+    voice: { ...male(0.74, 0.86, "sv-SE", [], 1.4), neuralVoice: "onyx" },
     avatar: {
       expressive: true,
       skin: "#e2ab7e",
@@ -488,7 +504,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "lionel-messi": {
     flag: "🇦🇷",
-    voice: male(1.05, 0.95, "es-AR"),
+    voice: { ...male(1.06, 0.9, "es-MX", [], 1.25), neuralVoice: "alloy" },
     avatar: {
       skin: "#e9bd94",
       hair: "short",
@@ -504,7 +520,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "jose-mourinho": {
     flag: "🇵🇹",
-    voice: male(0.88, 0.9, "pt-PT"),
+    voice: { ...male(0.86, 0.88, "pt-PT", [], 1.35), neuralVoice: "echo" },
     avatar: {
       skin: "#e6b78f",
       hair: "receding",
@@ -525,7 +541,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   // ---- Creators ------------------------------------------------------------
   ishowspeed: {
     flag: "🇺🇸",
-    voice: male(1.25, 1.2, "en-US"),
+    voice: { ...male(1.38, 1.34, "en-US", ["Junior", "Rocko"], 0.5), neuralVoice: "verse" },
     avatar: {
       expressive: true,
       skin: "#8a5a38",
@@ -542,7 +558,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   mrbeast: {
     flag: "🇺🇸",
-    voice: male(1.05, 1.12, "en-US"),
+    voice: { ...male(1.06, 1.22, "en-US", ["Rocko"], 0.6), neuralVoice: "ash" },
     avatar: {
       expressive: true,
       skin: "#f0c9a6",
@@ -561,7 +577,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   pewdiepie: {
     flag: "🇸🇪",
-    voice: male(1.0, 1.05, "sv-SE"),
+    voice: { ...male(1.02, 1.12, "sv-SE", [], 0.8), neuralVoice: "alloy" },
     avatar: {
       skin: "#f0c9a6",
       hair: "short",
@@ -578,7 +594,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   ksi: {
     flag: "🇬🇧",
-    voice: male(1.0, 1.1, "en-GB"),
+    voice: { ...male(0.94, 1.16, "en-GB", ["Rocko", "Eddy"], 0.7), neuralVoice: "ash" },
     avatar: {
       expressive: true,
       skin: "#8a5a38",
@@ -596,7 +612,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "niko-omilana": {
     flag: "🇬🇧",
-    voice: male(1.05, 1.05, "en-GB"),
+    voice: { ...male(1.04, 1.06, "en-GB", ["Arthur"], 0.85), neuralVoice: "verse" },
     avatar: {
       expressive: true,
       skin: "#7a4e30",
@@ -614,7 +630,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   // ---- Political commentators ---------------------------------------------
   "mehdi-hasan": {
     flag: "🇬🇧",
-    voice: male(1.0, 1.08, "en-GB"),
+    voice: { ...male(1.0, 1.16, "en-GB", ["Daniel"], 0.75), neuralVoice: "ash" },
     avatar: {
       expressive: true,
       skin: "#c08a58",
@@ -631,7 +647,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "piers-morgan": {
     flag: "🇬🇧",
-    voice: male(0.9, 1.02, "en-GB"),
+    voice: { ...male(0.88, 1.04, "en-GB", ["Arthur"], 0.9), neuralVoice: "echo" },
     avatar: {
       expressive: true,
       skin: "#eec5a3",
@@ -647,7 +663,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "tucker-carlson": {
     flag: "🇺🇸",
-    voice: male(0.95, 0.95, "en-US"),
+    voice: { ...male(0.96, 0.94, "en-US", ["Eddy"], 1.2), neuralVoice: "alloy" },
     avatar: {
       expressive: true,
       skin: "#f0cba8",
@@ -663,7 +679,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "ben-shapiro": {
     flag: "🇺🇸",
-    voice: male(1.15, 1.25, "en-US"),
+    voice: { ...male(1.18, 1.4, "en-US", ["Rocko"], 0.45), neuralVoice: "verse" },
     avatar: {
       expressive: true,
       skin: "#eec39c",
@@ -679,7 +695,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "jordan-peterson": {
     flag: "🇨🇦",
-    voice: male(1.05, 0.92, "en-CA"),
+    voice: { ...male(1.12, 0.88, "en-US", ["Reed"], 1.5), neuralVoice: "echo" },
     avatar: {
       skin: "#ecc4a1",
       hair: "slick-back",
@@ -700,7 +716,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   // ---- Academic debaters (no flags: avoid misassigning real people) --------
   "udai-kamath": {
     flag: "🇮🇳",
-    voice: male(1.0, 1.1),
+    voice: { ...male(1.0, 1.08, "en-IN", ["Rishi"], 0.95), neuralVoice: "verse" },
     avatar: {
       skin: "#b07a4e",
       hair: "short",
@@ -714,7 +730,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "jack-story": {
     flag: "🇬🇧",
-    voice: male(0.98, 1.05, "en-GB"),
+    voice: { ...male(0.98, 1.04, "en-GB", ["Daniel"], 1.0), neuralVoice: "ash" },
     avatar: {
       skin: "#eec39c",
       hair: "short",
@@ -728,7 +744,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "mark-rothery": {
     flag: "🇬🇧",
-    voice: male(0.92, 1.0, "en-GB"),
+    voice: { ...male(0.92, 0.98, "en-GB", ["Arthur"], 1.15), neuralVoice: "echo" },
     avatar: {
       skin: "#f0c9a6",
       hair: "side-part",
@@ -741,7 +757,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "aniket-chakravorty": {
     flag: "🇮🇳",
-    voice: male(0.95, 1.08),
+    voice: { ...male(0.96, 1.06, "en-IN", ["Rishi"], 1.0), neuralVoice: "alloy" },
     avatar: {
       skin: "#a06a42",
       hair: "short",
@@ -756,7 +772,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "david-africa": {
     flag: "🇿🇦",
-    voice: male(0.88, 0.98),
+    voice: { ...male(0.86, 0.96, "en-ZA", ["Tessa"], 1.2), neuralVoice: "onyx" },
     avatar: {
       skin: "#6e442a",
       hair: "crew",
@@ -770,7 +786,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
   },
   "tobi-leung": {
     flag: "🇭🇰",
-    voice: male(1.02, 1.05),
+    voice: { ...male(1.02, 1.04, "en-AU", ["Gordon"], 1.0), neuralVoice: "verse" },
     avatar: {
       skin: "#e9bd94",
       hair: "short",

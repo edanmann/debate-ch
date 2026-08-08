@@ -4,13 +4,13 @@ import Link from "next/link";
 import { flagFor } from "@/lib/flags-emoji";
 import { formatOvr, tierForRating } from "@/lib/rating";
 import { SKILL_KEYS, SKILL_LABELS, type RatingState } from "@/lib/types";
-import { UserFace } from "./user-face";
 import { BotFace } from "./bot-face";
+import { UserFace } from "./user-face";
 
 /**
- * The Debates.ch progression card (spec §11.4) — an original sports-style
- * player card in the app's own design language. Tier treatment follows the
- * spec thresholds; no third-party card trade dress.
+ * The Debates.ch progression card. The face is always the *player's* own
+ * character; a selected coach rides along as a small companion beside the
+ * overall rating rather than replacing the player.
  */
 
 const TIER_STYLES: Record<string, string> = {
@@ -47,20 +47,35 @@ export function PlayerCard({
       aria-label={`Your player card, overall ${formatOvr(overall)}, tier ${tier.label}. Open detailed stats.`}
       className={`block w-full max-w-sm rounded-3xl border-2 bg-gradient-to-b p-5 transition-transform hover:-translate-y-0.5 ${TIER_STYLES[tier.id]}`}
     >
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="numeric text-5xl font-black leading-none">
-            {formatOvr(overall)}
-          </p>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-end gap-2">
+            <p className="numeric text-5xl font-black leading-none">
+              {formatOvr(overall)}
+            </p>
+            {/* Coach rides beside the rating as a friendly companion. */}
+            {coachSlug && (
+              <span
+                className="mb-1 flex flex-col items-center"
+                title={`${coachName ?? "Coach"} is your coach`}
+              >
+                <BotFace
+                  slug={coachSlug}
+                  name={coachName ?? "Coach"}
+                  size={30}
+                  className="rounded-lg ring-2 ring-brand/60"
+                />
+                <span className="mt-0.5 text-[8px] font-black uppercase tracking-wider text-brand">
+                  Coach
+                </span>
+              </span>
+            )}
+          </div>
           <p className="mt-1 text-xs font-bold uppercase tracking-widest text-fg-muted">
             OVR · {tier.label}
           </p>
         </div>
-        {coachSlug ? (
-          <BotFace slug={coachSlug} name={coachName ?? "Coach"} size={64} />
-        ) : (
-          <UserFace name={name} size={64} />
-        )}
+        <UserFace name={name} size={72} />
       </div>
       <div className="mt-4 border-t border-white/10 pt-3 text-center">
         <p className="truncate text-xl font-extrabold tracking-tight">{name}</p>

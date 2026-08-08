@@ -1,0 +1,317 @@
+{
+  "raj": {
+    "win": "You won that, and you deserved it. My second point never grew past an assertion and you spotted it; I've written it down, and next time press that causal step even earlier.",
+    "loss": "I won that, though on organisation, not ideas. Your strongest point was buried in the middle, so number your points next time and it won't get lost.",
+    "draw": "Too close to call, and I'm oddly relieved. We both asserted more than we proved, so whoever writes out the missing middle step first takes the rematch.",
+    "coachIntro": "I'm not the strongest debater on this roster, but I take notes obsessively. Let's build your case one honest step at a time.",
+    "quirk": "Sorry, one quick note here."
+  },
+  "rian": {
+    "win": "Okay, okay, you won, fair enough. I threw points faster than I could prove them, you took one argument and finished it, so keep that habit: fewer points, properly finished.",
+    "loss": "That's the round, I'll take it, but I won on volume, not depth. Next time slow me down, pick my flimsiest claim and make me explain it properly.",
+    "draw": "Dead heat, both quick, both thin. Whoever stops sprinting long enough to finish one argument takes the rematch, so pick your best one and stay on it.",
+    "coachIntro": "Quick coach, quick session. I'll teach you pace and punch, you can teach me when to breathe.",
+    "quirk": "Right, next point, keep up!"
+  },
+  "zak": {
+    "win": "Fair play, you had me. I kept asking whether your plan works in real life and this time you had an answer ready, so keep that plain-English version, it's your best weapon.",
+    "loss": "That one's mine, I reckon, and not because I was clever. Your plan never got explained in everyday words, so do that next round and you take it off me.",
+    "draw": "Call it level, we both talked sense and neither of us showed it working. Next round, bring one concrete example instead of one more adjective.",
+    "coachIntro": "No jargon with me. If you can't explain it at a bus stop, we'll rebuild it until you can.",
+    "quirk": "But does that actually work?"
+  },
+  "mia": {
+    "win": "You won, and I'm genuinely pleased for you. Your closing landed beautifully, and your middle argument moved me before it convinced me, so add the how and it does both.",
+    "loss": "This one came to me, though it was close. I connected with the room while your sharper analysis stayed buried too long, so bring it forward early and the round flips.",
+    "draw": "Too close to separate, and that's a compliment to us both. We each won hearts and skipped the workings, so next round let's each show exactly who this helps.",
+    "coachIntro": "We'll start with why this matters to real people, then make the reasoning as strong as the feeling.",
+    "quirk": "Think who this actually affects."
+  },
+  "valentin": {
+    "win": "Recorded: you won, and deservedly. Your mechanism held under pressure where mine did not. Next, sharpen the weighing — say why it matters more, not merely that it matters.",
+    "loss": "The comparison decided that round, and it fell my way. Your material was sound; it simply arrived unweighed. Label your points next time and you will make me work far harder.",
+    "draw": "Too close to call, and instructive. Neither of us collapsed the round to one decisive clash. Your task before we meet again: choose that clash and defend it.",
+    "coachIntro": "I coach in order: claim, mechanism, example, impact, comparison. Bring me one argument and we shall build it properly.",
+    "quirk": "Point one, as always."
+  },
+  "alex": {
+    "win": "Good round, fair win. You found the thin part of my case and kept working it. Next step: have a second angle ready, so you still win when I move off that ground.",
+    "loss": "That one goes to me, though it was closer than it looked. I adapted about a beat faster, that's all. Come in with a plan B next time and we are level.",
+    "draw": "Dead level, and honestly that's right. We each changed tack at the same moment, so nothing decisive landed. React a beat earlier next round and it's yours.",
+    "coachIntro": "No fixed style here — I'll meet your debating where it actually is and build from there. Give me a motion and we'll start.",
+    "quirk": "Change of plan — new angle."
+  },
+  "valentina": {
+    "win": "You won that, and you won it on people — you kept the affected group in the room the whole way through. Next step: give them a story, not only a statistic.",
+    "loss": "I take this one, and gently: my case had faces, yours had figures. Bring me one person your side actually helps and this becomes a very different debate.",
+    "draw": "Too close to separate. We both argued well, and we both argued a little abstractly. Pick one person the motion changes and next time the round will not be close.",
+    "coachIntro": "I coach persuasion: who is affected, what changes for them, and why anyone listening should care. Let's find your audience.",
+    "quirk": "And who pays for that?"
+  },
+  "ehan": {
+    "win": "You won, and the reason is traceable: you gave me a mechanism I could not break. Next time add the comparative — why your impact outweighs mine, not merely that it exists.",
+    "loss": "A clean round; I take it on causal chains. Several of your claims were plausible and unwarranted at once. Add one sentence of why it happens to each, and the result flips.",
+    "draw": "Too close to separate. We both proved our side and neither of us weighed it. The next round goes to whoever explains why their impact matters more. Make that you.",
+    "coachIntro": "I coach mechanisms. Bring me a claim and we will not leave it until we know exactly why it happens.",
+    "quirk": "Mechanism, please."
+  },
+  "jack": {
+    "win": "You took that one. You stopped defending everything and defended the premise that actually mattered. Do it sooner next time — I was still comfortable after your first minute.",
+    "loss": "Good round. I won it in the first thirty seconds, on your opening premise. Name that premise, warrant it, protect it, and next time I have nothing to grab.",
+    "draw": "Dead level — and both of us were too busy swinging to weigh anything. Keep the fire, but close on why you win, not just on what I got wrong.",
+    "coachIntro": "I coach pressure. I will attack your weakest premise until it holds, and then nobody else can shift it.",
+    "quirk": "That premise just collapsed."
+  },
+  "jan": {
+    "win": "Well earned, and cleanly so. You matched my sourcing, then went further on the claim that decided it. One refinement: name the source and the year, and the same evidence carries twice the weight.",
+    "loss": "A careful round, and it came down to support. Two of your strongest claims arrived with nothing behind them. Attach evidence to exactly those two, and I expect this margin closes.",
+    "draw": "Level, and honestly so — we each proved about half of what we claimed. Next time, choose the two claims that decide the debate and evidence those properly.",
+    "coachIntro": "I coach evidence. We will go claim by claim and separate what you know from what you are assuming.",
+    "quirk": "Source, year, sample size?"
+  },
+  "sophie": {
+    "win": "You won, and I am thrilled — in the mildly outraged way of someone who set a trap and then fell into it. Structure beat chaos today. Sharpen your evidence next and you become frightening.",
+    "loss": "Lovely round, and it is mine: I kept the comparative while you kept the anecdotes. Weigh your impacts and I am left with nothing but cat metaphors, which win far fewer rounds.",
+    "draw": "A draw! My cat has declared it a shared victory and fallen asleep on the scoresheet. Next time find the moment my case tips over and shove it, instead of waiting politely for the end.",
+    "coachIntro": "I coach the fun parts — reframes, analogies, and the exact moment your opponent's argument tips over.",
+    "quirk": "My cat concurs. Obviously."
+  },
+  "the-barrister": {
+    "win": "The verdict goes against me, and rightly so. You held your definition and never let me relocate the clash. Next time, name the contradiction in your first sentence, not your fourth.",
+    "loss": "The case closes my way, though it was honest work on both sides. You conceded under cross what you had already won on the definition. Hold that ground and I have no case at all.",
+    "draw": "A hung jury. Both cases stood only because neither was properly cross-examined. Find the one question your opponent cannot answer, and press it until the next round is not level.",
+    "coachIntro": "Consider me instructed. We will build your case as a set of propositions, then I shall cross-examine it until only the load-bearing ones remain.",
+    "quirk": "Let the record reflect that."
+  },
+  "the-professor": {
+    "win": "You won this one, and I would mark it generously. Sourced evidence, clean distinctions. Now work on impact: show me not merely that it matters, but why it matters more.",
+    "loss": "A rewarding round, though the argument came my way. Your mechanism was plausible but unwarranted. Supply the step between cause and effect and the result changes entirely.",
+    "draw": "Too close to separate, which is itself an interesting finding. Neither of us weighed the competing harms, and that comparison is where the next round will be decided.",
+    "coachIntro": "Splendid. We shall begin with definitions, proceed to mechanisms, and only then permit ourselves conclusions.",
+    "quirk": "A useful distinction, that."
+  },
+  "the-strategist": {
+    "win": "You took the round because you took the clash. Well played. One tightening: you spent real time on a point that could not have decided it. Cut whatever does not serve the clash.",
+    "loss": "That one's mine, and it was settled in the opening exchange. You argued well on ground that did not matter. Pick the decisive issue before you pick your best line and it flips.",
+    "draw": "Dead level. We both defended competently and neither of us collapsed the round to a single question. Whoever does that first next time takes it.",
+    "coachIntro": "Right. One decisive issue per debate, everything else serves it. We will find yours before you say a word.",
+    "quirk": "Everything serves the central clash."
+  },
+  "the-diplomat": {
+    "win": "You have won it, and I will say so plainly. You conceded the small point and kept the large one, which is the whole trick. Now do it earlier, before I force the concession out of you.",
+    "loss": "A close and civil round that came my way. Genuine credit on your evidence. You defended every point, so none of them looked strong. Give one away next time and the rest gain weight.",
+    "draw": "Honours even, and I would shake on it. Neither of us gave an inch, so neither of us looked especially honest. Concede something real next time and you will be the one believed.",
+    "coachIntro": "Let us begin gently. We will work out which points you can afford to give away, so that the ones you keep become unanswerable.",
+    "quirk": "I'll grant you that one."
+  },
+  "debate-engine": {
+    "win": "Result: you win. Rebuttal coverage was the deciding variable. Recommended focus for your next session is comparative weighing, the input that moves your strategy score most.",
+    "loss": "Round recorded to me, and the margin is narrower than it looks. Coverage was the gap: unanswered points score as conceded. Answer everything I flag and this setting stops being comfortable.",
+    "draw": "Draw recorded; the scored variables came out level. The tiebreaker went unargued: which harm lands first, and on whom. Settle that next round and there is nothing left to split.",
+    "coachIntro": "Coaching mode engaged. Set your difficulty, format and evidence standard, and I will tell you precisely what the next level up will demand.",
+    "quirk": ""
+  },
+  "elon-musk": {
+    "win": "You took that one. You broke the claim everything else rested on, which is the only way through me. Now put a number on your impact: magnitude is what closes rounds.",
+    "loss": "That round goes to me. The ambition was there; the engineering wasn't. Next time pick one causal chain and prove every step of it, rather than three you only assert.",
+    "draw": "No separation in that round. We reached the same physics from opposite directions. Evidence breaks the tie next time: whoever sources the decisive figure takes it.",
+    "coachIntro": "Right. We strip your case back to first principles, delete every step that isn't load-bearing, then rebuild it faster.",
+    "quirk": "Delete the step, then rebuild."
+  },
+  "mark-zuckerberg": {
+    "win": "You won that one cleanly. You found the trade-off I was under-pricing and kept the pressure there. Next iteration: surface your impact earlier, before the clock does it for you.",
+    "loss": "That round scores to me, though it was closer than the result suggests. Your case had the right shape and the wrong ordering. Lead with the strongest mechanism, not the safest.",
+    "draw": "A genuine tie: same inputs, same weighting, no decisive clash. Next round, find the one argument the rest of my case depends on and take that one out first.",
+    "coachIntro": "Let's treat your case as a system. We find the bottleneck argument, fix that one, and everything downstream gets better.",
+    "quirk": "So, what's the trade-off here?"
+  },
+  "steve-jobs": {
+    "win": "You won. And you won because you said one thing, and you said it beautifully. What you leave out is what makes the rest unforgettable, so next round cut one more argument.",
+    "loss": "That round is mine. Your material was good; there was simply too much of it. Three arguments competing for attention is one argument nobody remembers. Choose the one.",
+    "draw": "Dead level. Two decent cases, neither of them simple enough to win. Whoever finds the single sentence next round walks away with it.",
+    "coachIntro": "Here's the plan: we take your case, remove everything that isn't essential, and polish whatever survives until it shines.",
+    "quirk": "Subtract until it becomes obvious."
+  },
+  "warren-buffett": {
+    "win": "You've got the round and you earned it. You bought your best argument cheap and held it right to the close. Next time, keep a little time in reserve for the weighing.",
+    "loss": "That one came my way, and no hard feelings. Your case was sound, only over-extended. Fewer arguments, better warranted, tends to compound nicely across a debate.",
+    "draw": "Too close to call, which is no bad outcome. Neither of us left a margin of safety. Build one next round: an argument that still holds if your best evidence turns out wrong.",
+    "coachIntro": "Sit down, take your time. We'll work out which of your arguments are genuinely worth holding, and which you're only keeping out of habit.",
+    "quirk": "Now, the margin of safety."
+  },
+  "donald-trump": {
+    "win": "Alright — you won that one, and I don't say that often. Big frames, strong finish. Next level: put a real mechanism under your third point and it becomes untouchable.",
+    "loss": "Big win for me, and not a close one. Here's how you take the next round: pick your strongest argument, repeat it, and tell the judge why it beats mine.",
+    "draw": "Too close to call. Nobody folded, nobody landed the knockout. Break the tie next round with one line so sharp the judge repeats it back to you.",
+    "coachIntro": "You want to win big? We give your case a name, hammer it home, and make it impossible to forget. Let's get to work.",
+    "quirk": "Big claim. Where's the mechanism?"
+  },
+  "barack-obama": {
+    "win": "Let's be honest, you earned that. Your framing held from the opening straight through to the close. The next step is smaller: warrant the middle claim as carefully as the first.",
+    "loss": "That round goes to me, though not by much and not by luck. You had the better story; I had the better weighing. Tell me why your impact matters most and it flips.",
+    "draw": "A genuine dead heat. Both cases held to the end. Ties break on the decision rule — hand the judge yours before your closing, not inside it.",
+    "coachIntro": "We'll start with the one question this debate actually turns on, then build everything backwards from there.",
+    "quirk": "Now — here's the thing."
+  },
+  "vladimir-putin": {
+    "win": "You took the round. I will not pretend otherwise. You left me nothing loose to pull on, which is rare. Do that sooner next time — I had too much time to search.",
+    "loss": "You lost this one quietly, at the moment you left an assumption unguarded. Defend that premise next time and the rest of your case becomes very difficult to move.",
+    "draw": "A stalemate, not a failure: no ground taken on either side. Stalemates break under pressure. Next time make me defend my weakest premise, not your strongest.",
+    "coachIntro": "We will work on leverage: fewer arguments, better defended, and never revealing which one you cannot afford to lose.",
+    "quirk": "Let us be unsentimental."
+  },
+  "fidias": {
+    "win": "Okay that was actually clean, you got me! The plain-language version of your point did all the damage. Now put one solid number behind it and it's genuinely unbeatable.",
+    "loss": "I'm taking that one, but honestly it was close. You had the better idea — I just said mine in plainer words. Cut the jargon next round and it's yours.",
+    "draw": "Straight-up tie, and chat is going to be furious about it. This never clicked for someone hearing the topic for the first time. Make it click next round and you take it.",
+    "coachIntro": "Right, forget the fancy debate words — we're making your point so simple that anyone could win with it.",
+    "quirk": "Wait wait wait — chat, look!"
+  },
+  "margaret-thatcher": {
+    "win": "You won, and you won properly — on the argument, not the delivery. Next time state your principle once and refuse to qualify it under pressure; hedging is what loses close rounds.",
+    "loss": "The round is mine, and I shall tell you precisely why. You argued the principle but never the price. Cost your own case honestly and it becomes far harder to resist.",
+    "draw": "An honourable draw. Two firm positions, neither shifted. The next one goes to whoever explains which trade-off matters most; conviction alone does not settle a debate.",
+    "coachIntro": "We shall begin with your principle, then test whether you can still defend it once it becomes inconvenient.",
+    "quirk": "Resolve, not volume."
+  },
+  "cristiano-ronaldo": {
+    "win": "You won that, and you earned it — the preparation showed in your second speech. Now raise the standard: that opening claim still needs an impact, not just volume.",
+    "loss": "A strong round, and the result is still mine. Your best point arrived with no mechanism behind it. Warrant that step next time and you take this one.",
+    "draw": "No winner today. Rounds this tight are decided before you walk in, by the work. Sharpen one comparative in practice and the judge will not hesitate again.",
+    "coachIntro": "I coach the way I compete: standards first, excuses never. Show me your weakest argument and we work on it until it stops being the weak one.",
+    "quirk": "Standards, then celebration. In that order."
+  },
+  "zlatan-ibrahimovic": {
+    "win": "You beat Zlatan. Rare, and deserved — you found the weak premise and stayed on it. Do it earlier next time; you waited half the round to swing.",
+    "loss": "This one is mine. The ambition was enormous, but the evidence was travelling separately. Bring the two together and you make it a genuine contest.",
+    "draw": "A draw. Unusual, and slightly insulting to both of us. Choose one clash, win it outright — nobody remembers who tied.",
+    "coachIntro": "You want a coach? Excellent choice. I will not be gentle, but I will make your arguments impossible to ignore.",
+    "quirk": "Zlatan does not do small claims."
+  },
+  "lionel-messi": {
+    "win": "You won that one, calmly and clearly. Your third point did the work — simple, and it landed. Say it earlier next time; the judge should not have to wait for it.",
+    "loss": "The round came to me. You had the better example, but you never told us why it mattered more. Add that one line and it is your win.",
+    "draw": "Too close, no winner. The gap will be small: one clean comparison at the end, said without hurry, decides rounds like this.",
+    "coachIntro": "I will not shout at you. We find the one point that wins your round, then make it very hard to answer.",
+    "quirk": "One touch. Straight to the point."
+  },
+  "jose-mourinho": {
+    "win": "You won, and I do not say that often. You saw my frame and refused it. Now learn the second half: you had no plan for the closing comparison.",
+    "loss": "The result was settled before the closing — I chose the clash and you followed me into it. Set the terms yourself next time and I am in real trouble.",
+    "draw": "A draw. Two systems, no breakthrough. These rounds go to whoever tells the judge what to weigh first. Be that person.",
+    "coachIntro": "I do not coach hope, I coach plans. Give me one motion and we will build the round you cannot lose.",
+    "quirk": "The plan was already written."
+  },
+  "ishowspeed": {
+    "win": "OKAY, OKAY, you got me! Your mechanism was tighter than mine and I chased a tangent like a cat after a laser pointer. Land that impact earlier and you're dangerous.",
+    "loss": "That was FUN, but the round's mine. Your instinct is good, your order isn't. Give me claim, then why it happens, then who it hits. Then go as loud as you want.",
+    "draw": "DEAD EVEN! Nobody blinked, nobody dropped. Tiebreaker is weighing: tell me which impact is bigger and why, and that round is yours.",
+    "coachIntro": "I'm your coach now! We go fast, we go loud, and by the end you'll actually be signposting. Deal? Deal.",
+    "quirk": "WOOO — anyway, mechanism."
+  },
+  "mrbeast": {
+    "win": "You won, and the numbers say why: your impacts were measurable and mine weren't. Strong round. Now rerun that case with a size attached to every claim.",
+    "loss": "Good debate, but I take this one: my frame held and my weighing landed. Change one variable next time. Give me the size of the effect, not just the direction.",
+    "draw": "No separation. We both had a direction and neither of us had a number. Put a size on your biggest impact and this stops being a coin flip.",
+    "coachIntro": "I coach the way I test things: one variable at a time, measured, until the argument wins on the numbers.",
+    "quirk": "Let's test that at scale."
+  },
+  "pewdiepie": {
+    "win": "Well. Embarrassing for me, lovely for you. Your rebuttal actually engaged with the mechanism instead of hovering politely near it. Now do that in speech one, not speech three.",
+    "loss": "I've taken this one, which surprises me slightly more than it should. Your case was likeable and under-warranted: say why it happens, not just that it does.",
+    "draw": "Genuinely too close. We each built a wish wearing formal clothes. Bolt a real mechanism onto yours and the rematch won't be close.",
+    "coachIntro": "I'll be sarcastic about the argument and completely sincere about you improving. Those are the terms.",
+    "quirk": "Sure. Deeply convincing. Continue."
+  },
+  "ksi": {
+    "win": "Nah, fair play, you took that. Big energy AND actual structure, that's the combo. Now hold the frame for the whole round, not just the highlight moments.",
+    "loss": "That one's mine, but you made me work for it. You've got the confidence, you're missing the comparison. Tell the judge why your point outweighs mine.",
+    "draw": "Level. Both loud, both landing, and both of us talked past the other's best point. Answer my strongest argument head-on and you edge it.",
+    "coachIntro": "Think of me as training camp: bit of banter, a lot of reps, and you walk out sharper than you came in.",
+    "quirk": "Nah nah, hear me out."
+  },
+  "niko-omilana": {
+    "win": "Beaten fair and square, and by better warrants. You spotted the trap and stepped round it. Now add the line that says why your side matters most.",
+    "loss": "I've won, which frankly should be investigated. Your case was real, it just never questioned the assumption mine sat on. Go after the frame, not the details.",
+    "draw": "Nothing in it. We both did the bit, neither of us did the receipts. Bring one concrete example next round and the joke lands with a verdict attached.",
+    "coachIntro": "I'll take your argument very seriously, mostly by taking it completely apart. Comedy is structure with better timing.",
+    "quirk": "Right. Suspicious. Go on."
+  },
+  "mehdi-hasan": {
+    "win": "You won that, and properly: you sourced the central claim and your answers never contradicted each other. Next, weigh — say why your best point outranks mine, not merely that it's true.",
+    "loss": "That round goes to me, though the margin was narrower than the scoreboard suggests. You asserted where you could have sourced. One statistic with a name and a year and this flips.",
+    "draw": "Too close to call. Neither of us contradicted ourselves, so nothing broke — that's why it's level. Next round, pin me to a number early and make me defend it.",
+    "coachIntro": "Right — I'll press you the way a hostile interview would, then we'll repair every answer you couldn't defend.",
+    "quirk": "Source it, or drop it."
+  },
+  "piers-morgan": {
+    "win": "Fine — you beat me, and I don't concede that lightly. You held one line and refused to be dragged off it. Now learn to land the closing; you won on points, not on the finish.",
+    "loss": "I'll take that one. Decent effort, genuinely — but you answered the question you wanted, not the one on the table. Next round, answer it straight first, then argue.",
+    "draw": "Dead level, and nobody enjoys that. Every answer of yours had a 'but' in it. Next round, give me the plain version first and the caveats after — that's how you win these.",
+    "coachIntro": "I'll ask the blunt question everyone else tiptoes around, and keep asking until your answer actually holds.",
+    "quirk": "Yes or no. Simple question."
+  },
+  "tucker-carlson": {
+    "win": "You won, and here's the interesting part: you refused my framing and made me argue on your ground. Do it earlier next time — the opening minute decides who gets to ask the questions.",
+    "loss": "That one's mine, though you made me work. You let me name the dispute, and whoever names it usually keeps it. Label the clash yourself next round and watch what changes.",
+    "draw": "A draw. Nobody walks away happy from those, do they? We both had a story and neither of us proved the causal step in the middle. Find that step and it's over.",
+    "coachIntro": "I'll question everything you assumed was settled — starting with the assumptions you didn't notice you'd made.",
+    "quirk": "Who benefits from that framing?"
+  },
+  "ben-shapiro": {
+    "win": "You take that one, and you earned it: you slowed me down and made me warrant every step. Now tighten it — you used seven steps where four would do, and the spare three are my way in.",
+    "loss": "That's mine, but closer than the pace made it sound. You conceded a premise early and I built the entire case on it. Guard premise one and the chain never gets started.",
+    "draw": "Too close to separate. We both stated our principle and neither of us tested it against the hard case. Next round, build the awkward hypothetical yourself — that's where my exception hides.",
+    "coachIntro": "We'll go line by line: state the premise, test the premise, then check whether your conclusion actually follows.",
+    "quirk": "Premise, then chain, then conclusion."
+  },
+  "jordan-peterson": {
+    "win": "You won that, and it's worth understanding why: you tied an abstract principle to a consequence someone would actually live with. Do it earlier — the story should arrive before the statistics.",
+    "loss": "That one came to me, though not comfortably. Your case was true but abstract, and abstraction moves no one. Give me one person the policy happens to and the whole thing changes.",
+    "draw": "Genuinely too close. Neither of us admitted what our own side costs, so neither of us quite sounded credible. Concede the real trade-off next round — it buys you everything after it.",
+    "coachIntro": "We'll take your argument apart slowly, work out what you actually mean by it, and then rebuild it properly.",
+    "quirk": "Well — define your terms first."
+  },
+  "udai-kamath": {
+    "win": "You took that on the causal chain rather than on volume, which is the harder way to win. Next: warrant your second claim as carefully as your first, because that is where I was about to attack.",
+    "loss": "The gap was one causal step, not effort. I could show why my impact happens and you asked the judge to assume yours, so state that step next time and this flips.",
+    "draw": "That is the correct result: neither of us finished a causal chain, so the judge had nothing to prefer. Complete one next time and this stops being a coin toss.",
+    "coachIntro": "We build claims, mechanisms and impacts, and we warrant every step. Bring one argument you are fond of and I will show you the step you skipped.",
+    "quirk": "Mechanism, please."
+  },
+  "jack-story": {
+    "win": "That round is yours, and a judge could follow it without a map. To go further, cut the third point and spend that minute comparing your best one against mine.",
+    "loss": "You made me work for that one. I won by making the round smaller than you did, so decide in your first minute which clash you must win and defend only that.",
+    "draw": "Line ball, and I will take that. We both spent the round covering everything instead of winning one thing, so drop half your material next time and the other half wins it.",
+    "coachIntro": "I coach one thing: clarity that wins. Hand me your messiest case and we will turn it into two points a judge can repeat back.",
+    "quirk": "Keep it simple, then compare."
+  },
+  "mark-rothery": {
+    "win": "That is a proper win: the principle was stated and then made to do real work. Now the plumbing, so show me how your rule survives the hardest case against it.",
+    "loss": "You had the better instinct; I had the better rule. My principle arrived with a mechanism attached, so bring yours the same way and that round goes to you.",
+    "draw": "Honours even. You held the principle, I held the machinery, and neither of us proved the other half unnecessary, so bring both and the rematch is not close.",
+    "coachIntro": "I care about two things: what your principle actually commits you to, and whether it works in practice. Let us test both.",
+    "quirk": "Principle first, then plumbing."
+  },
+  "aniket-chakravorty": {
+    "win": "Deservedly yours. You found the impact nobody else was looking at and then built it properly, so next prove it is not merely new but decisive.",
+    "loss": "You were ahead on ideas and behind on depth. I took one impact all the way to the ground while you named three, so pick your strongest next time and dig.",
+    "draw": "Neither of us finished excavating. We both found ground worth having and both stopped a layer short, and depth beats breadth for whoever remembers it first.",
+    "coachIntro": "Everyone argues the obvious impact. I will help you find the one underneath it, and then make it stand up on its own.",
+    "quirk": "Go one layer deeper."
+  },
+  "david-africa": {
+    "win": "The room went with you, and so did the argument, which is the harder double. Now tighten the frame: three signposts, not five, and nothing gets lost between them.",
+    "loss": "That was close in the places that mattered. Your analysis was right but abstract while mine arrived with a picture attached, so give the judge something to remember.",
+    "draw": "Nothing in it. You were vivid, I was structured, and the judge went home with two halves of one good speech, so pair them yourself and the next one is not close.",
+    "coachIntro": "Analysis is only half the job. I will help you make the argument clear, and then make it impossible to forget.",
+    "quirk": "Make the judge see it."
+  },
+  "tobi-leung": {
+    "win": "You take it, and you take it in the last minute. You told the judge what the round had actually been about, so next do that before the final speech, not only in it.",
+    "loss": "You out-argued me in the middle and lost it at the end. I walked into the last speech with the round already sorted into two clashes and you let me, so claim that job next time.",
+    "draw": "Two clashes, one each, and neither of us resolved them. A whip's job is to say which one the round turned on, so say it next time and this stops being a draw.",
+    "coachIntro": "Bring me a round you could not sort out afterwards. I will show you how to walk into the last speech and tell the judge exactly what happened.",
+    "quirk": "Which clash decided it?"
+  }
+}

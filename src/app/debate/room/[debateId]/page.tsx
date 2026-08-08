@@ -7,6 +7,7 @@ import { presentationFor } from "@/lib/bot-presentation";
 import { FLAGS } from "@/lib/flags";
 import { formatClock, getFormat } from "@/lib/formats";
 import { drawMotionWithPrefs, getAllMotions, getMotionById } from "@/lib/motions";
+import { evaluateLive } from "@/lib/live-eval";
 import { finalizeDebate, resignDebate } from "@/lib/results";
 import { createRecognizer, sttSupported, type Recognizer } from "@/lib/stt";
 import {
@@ -18,8 +19,9 @@ import {
 import { getState, saveDebate, useAppState, useHydrated } from "@/lib/store";
 import { speakText, stopAllSpeech, ttsSupported } from "@/lib/voice";
 import type { DebateRecord, TranscriptEntry } from "@/lib/types";
-import { UserFace } from "@/components/user-face";
+import { SelfView } from "@/components/self-view";
 import { BotFace } from "@/components/bot-face";
+import { EvalBar } from "@/components/eval-bar";
 import { buttonClass, Badge, ProgressBar } from "@/components/ui";
 
 /**
@@ -74,6 +76,7 @@ export default function DebateRoomPage() {
   const [panel, setPanel] = useState<"stage" | "transcript" | "notes">("stage");
   const [resigning, setResigning] = useState(false);
   const [motionPickerOpen, setMotionPickerOpen] = useState(false);
+  const [cameraOn, setCameraOn] = useState(true);
 
   const botRequestedFor = useRef<string | null>(null);
   const finalizing = useRef(false);
@@ -301,32 +304,53 @@ export default function DebateRoomPage() {
   }, [stage, botError, requestBotTurn]);
 
   // Speak the bot's latest line, then move on when the voice finishes.
+  //
+  // This effect must NOT depend on the whole `debate` object: the clock
+  // rewrites that object every second, which would tear down and restart
+  // speech once a second — the speech would loop over its opening words.
+  // Keying on the phase and the line itself makes it start exactly once.
+  const spokenKey = useRef<string | null>(null);
+  const mutedRef = useRef(muted);
+  const botSlugRef = useRef(debate?.botSlug ?? "");
   useEffect(() => {
-    if (stage !== "bot-speaking" || !debate || !phase) return;
-    const line = [...debate.transcript]
-      .reverse()
-      .find((t) => t.phaseId === phase.id && t.speaker === "bot");
-    if (!line) return;
+    mutedRef.current = muted;
+    if (debate) botSlugRef.current = debate.botSlug;
+  });
+  const botLineForPhase =
+    stage === "bot-speaking" && phase
+      ? ([...(debate?.transcript ?? [])]
+          .reverse()
+          .find((t) => t.phaseId === phase.id && t.speaker === "bot")?.text ?? null)
+      : null;
+  const speechKey =
+    debate && phase && botLineForPhase ? `${debate.id}:${phase.id}` : null;
 
-    const words = line.text.split(/\s+/).length;
-    const fallbackMs = Math.min(30000, Math.max(6000, (words / 2.6) * 1000));
+  useEffect(() => {
+    if (!speechKey || !botLineForPhase) return;
+    if (spokenKey.current === speechKey) return;
+    spokenKey.current = speechKey;
+
+    const words = botLineForPhase.split(/\s+/).length;
+    // Generous ceiling: only used if speech synthesis never reports back.
+    const fallbackMs = Math.min(90_000, Math.max(8_000, (words / 2.1) * 1000));
     let advanced = false;
     const go = () => {
       if (advanced) return;
       advanced = true;
       advanceRef.current();
     };
-    const timer = setTimeout(go, fallbackMs);
+    let timer = setTimeout(go, fallbackMs);
 
     let handle: { cancel: () => void } | null = null;
-    if (ttsSupported() && !muted) {
-      handle = speakText(line.text, presentationFor(debate.botSlug).voice, {
+    if (ttsSupported() && !mutedRef.current) {
+      handle = speakText(botLineForPhase, presentationFor(botSlugRef.current).voice, {
         onEnd: () => {
           clearTimeout(timer);
-          setTimeout(go, 600);
+          // A beat of silence before the next speaker takes over.
+          timer = setTimeout(go, 900);
         },
         onError: () => {
-          /* fall back to the timer */
+          /* leave the fallback timer to advance the round */
         },
       });
     }
@@ -334,7 +358,7 @@ export default function DebateRoomPage() {
       clearTimeout(timer);
       handle?.cancel();
     };
-  }, [stage, debate, phase, muted]);
+  }, [speechKey, botLineForPhase]);
 
   useEffect(() => () => stopAllSpeech(), []);
 
@@ -418,6 +442,8 @@ export default function DebateRoomPage() {
     [...debate.transcript]
       .reverse()
       .find((t) => phase && t.phaseId === phase.id && t.speaker === "bot")?.text ?? "";
+  const coachActive = isPractice && Boolean(user?.coachSlug);
+  const liveEval = coachActive ? evaluateLive(debate.transcript) : null;
   const coachTip =
     isPractice && FLAGS.coachLiveAssistance && user?.coachSlug
       ? stage === "prep"
@@ -468,8 +494,10 @@ export default function DebateRoomPage() {
               : "bg-board-2/90"
           }`}
         >
-          <UserFace size={64}
-            className="mx-auto"
+          <SelfView
+            enabled={debate.mode === "video" && cameraOn}
+            name={user?.displayName ?? "You"}
+            size={64}
             speaking={userTurn && listening}
           />
           <p className="mt-1 truncate text-sm font-bold">
@@ -505,6 +533,17 @@ export default function DebateRoomPage() {
           </p>
         </div>
       </div>
+
+      {/* Live coach evaluation — the debating equivalent of an engine bar. */}
+      {liveEval && (
+        <div className="mt-3">
+          <EvalBar
+            evaluation={liveEval}
+            userName={user?.displayName ?? "You"}
+            botName={debate.botName}
+          />
+        </div>
+      )}
 
       {/* Panels */}
       <div className="mt-4 flex gap-1 rounded-xl bg-surface-1 p-1" role="tablist">
@@ -831,14 +870,25 @@ export default function DebateRoomPage() {
           <button
             type="button"
             onClick={() => {
-              setMuted(!muted);
-              if (!muted) stopAllSpeech();
+              const next = !muted;
+              setMuted(next);
+              if (next) stopAllSpeech();
             }}
             aria-pressed={muted}
             className={buttonClass(muted ? "secondary" : "ghost", "sm")}
           >
             {muted ? "🔇 Voice off" : "🔊 Voice on"}
           </button>
+          {debate.mode === "video" && (
+            <button
+              type="button"
+              onClick={() => setCameraOn(!cameraOn)}
+              aria-pressed={!cameraOn}
+              className={buttonClass(cameraOn ? "ghost" : "secondary", "sm")}
+            >
+              {cameraOn ? "📹 Camera on" : "📷 Camera off"}
+            </button>
+          )}
         </div>
         <button
           type="button"

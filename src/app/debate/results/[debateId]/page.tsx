@@ -8,6 +8,7 @@ import { userWordCount } from "@/lib/results";
 import { useAppState, useHydrated } from "@/lib/store";
 import { SKILL_KEYS, SKILL_LABELS } from "@/lib/types";
 import { Celebration } from "@/components/celebration";
+import { DebateReview } from "@/components/debate-review";
 import { UserFace } from "@/components/user-face";
 import { BotFace } from "@/components/bot-face";
 import { SixStatBars } from "@/components/stats";
@@ -129,6 +130,13 @@ export default function ResultsPage() {
           </p>
         )}
       </Card>
+
+      <DebateReview
+        botSlug={debate.botSlug}
+        botName={debate.botName}
+        coachSlug={user?.coachSlug}
+        judgement={j}
+      />
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         {/* Scores */}

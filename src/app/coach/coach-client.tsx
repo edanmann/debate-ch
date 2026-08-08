@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { coachIntroFor } from "@/lib/bot-reviews";
 import { updateState, useAppState } from "@/lib/store";
 import type { BotCardData } from "@/lib/types";
 import { BotFace } from "@/components/bot-face";
@@ -28,10 +29,22 @@ function CoachPicker({ bots }: { bots: BotCardData[] }) {
 
       <Card className="mt-6 p-4">
         {current ? (
-          <p className="text-sm">
-            Current coach:{" "}
-            <strong>{bots.find((b) => b.slug === current)?.name ?? current}</strong>
-          </p>
+          <div className="flex items-start gap-3">
+            <BotFace
+              slug={current}
+              name={bots.find((b) => b.slug === current)?.name ?? "Coach"}
+              size={48}
+              className="shrink-0"
+            />
+            <div>
+              <p className="text-sm font-bold">
+                {bots.find((b) => b.slug === current)?.name ?? current}
+              </p>
+              <p className="mt-0.5 text-sm italic text-fg-muted">
+                “{coachIntroFor(current)}”
+              </p>
+            </div>
+          </div>
         ) : (
           <p className="text-sm text-fg-muted">No coach selected yet.</p>
         )}

@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { botFlag } from "@/components/bot-face";
 import { BotFace } from "@/components/bot-face";
 import { groupBots } from "@/lib/bot-groups";
+import { DEFAULT_OPPONENT_SLUG } from "@/lib/coach";
 import { FORMATS } from "@/lib/formats";
 import { createDebate } from "@/lib/debate";
 import { formatOvr } from "@/lib/rating";
@@ -58,8 +59,9 @@ export default function BotDirectory({ bots }: { bots: BotCardData[] }) {
 
   const [query, setQuery] = useState("");
   const [openGroup, setOpenGroup] = useState<string>(groups[0]?.name ?? "");
+  // Trump is the headline opponent, so he is preselected.
   const [selected, setSelected] = useState<BotCardData | null>(
-    groups[0]?.bots[0] ?? null
+    bots.find((b) => b.slug === DEFAULT_OPPONENT_SLUG) ?? groups[0]?.bots[0] ?? null
   );
   const [formatId, setFormatId] = useState("rapid");
   const [starting, setStarting] = useState(false);

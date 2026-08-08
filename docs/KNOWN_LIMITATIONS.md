@@ -12,10 +12,16 @@ Nothing pretends to work.
   browsers only, and accuracy varies. Because debates are audio-only, other
   browsers see the microphone-unavailable state rather than a text fallback.
   A hosted STT provider replaces this behind `SpeechToTextProvider`.
-- **Bot voices use the device's built-in speech synthesis**, shaped by broad
-  pitch/rate/language parameters. They are deliberately *not* identity
-  imitations of the real people (docs/SAFETY_AND_LEGAL.md); a licensed TTS
-  provider slots in behind `TextToSpeechProvider`.
+- **Bot voices sound synthetic without a TTS key.** The browser's
+  speechSynthesis exposes only the operating system's compact voices — on
+  macOS that is 191 voices, none of them neural — so no amount of pitch or
+  pacing tuning makes them sound human. Speech is chunked into sentences with
+  real pauses, voices are scored for quality/locale/gender, and each character
+  names preferred voices so speakers stay distinct, but the ceiling is low.
+  Setting `OPENAI_API_KEY` or `ELEVENLABS_API_KEY` switches `/api/tts` on and
+  the bots speak with neural voices instead. These are stock provider presets
+  chosen per character — never clones of a real person's voice
+  (docs/SAFETY_AND_LEGAL.md).
 - **Video mode is flagged off.** The mode selector, recording indicator and
   data model support it; WebRTC/camera capture is hosted-phase work.
 - **Lessons are gated to coming-soon** by product decision — interactive or

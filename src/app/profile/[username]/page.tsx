@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { PUZZLES } from "@/lib/content";
 import { flagFor } from "@/lib/flags-emoji";
+import { coachNameFromSlug } from "@/lib/coach";
 import { useAppState } from "@/lib/store";
 import { BotFace } from "@/components/bot-face";
 import { PlayerCard } from "@/components/player-card";
@@ -51,7 +52,7 @@ function Profile() {
             overall={state.overallElo}
             ratings={state.ratings}
             coachSlug={user.coachSlug}
-            coachName={user.coachSlug}
+            coachName={coachNameFromSlug(user.coachSlug)}
           />
         </div>
         <div className="flex-1">

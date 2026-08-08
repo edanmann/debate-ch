@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { getDailyPuzzle } from "@/lib/content";
+import { coachNameFromSlug } from "@/lib/coach";
 import { useAppState } from "@/lib/store";
 import { BotFace } from "@/components/bot-face";
 import {
@@ -15,13 +16,6 @@ import {
 import { PlayerCard } from "@/components/player-card";
 import RequireAuth from "@/components/require-auth";
 import { Badge, ButtonLink, Card, EmptyState, SectionTitle } from "@/components/ui";
-
-const COACH_NAMES: Record<string, string> = {
-  raj: "Raj",
-  sophie: "Sophie",
-  "the-professor": "The Professor",
-  "the-diplomat": "The Diplomat",
-};
 
 function Dashboard() {
   const state = useAppState();
@@ -219,7 +213,7 @@ function Dashboard() {
             overall={state.overallElo}
             ratings={state.ratings}
             coachSlug={user.coachSlug}
-            coachName={user.coachSlug ? COACH_NAMES[user.coachSlug] ?? "Coach" : null}
+            coachName={coachNameFromSlug(user.coachSlug)}
           />
           {state.ratingHistory[0] && (
             <Card className="p-4 text-sm">
