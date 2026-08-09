@@ -363,7 +363,7 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
       gesture: "pinch",
       expressive: true,
       skin: "#eeb083",
-      hair: "comb-over",
+      hair: "swoop-classic",
       hairColor: "#e8c25a",
       brows: "stern",
       clothing: "suit",

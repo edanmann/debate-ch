@@ -28,6 +28,7 @@ export interface AvatarConfig {
     | "afro"
     | "quiff"
     | "comb-over"
+    | "swoop-classic"
     | "swept-back"
     | "crop"
     | "locs-up"
@@ -171,6 +172,14 @@ function Hair({ cfg }: { cfg: AvatarConfig }) {
         // Tight sides with the volume pushed up and forward at the front.
         <path
           d="M27.5 46 C27 34 28.5 26.5 32.5 21 C37 15.5 43 10.5 50.5 10 C61.5 9.5 73 20 73.5 46 C72.5 35 65.5 30.5 50 30.5 C34.5 30.5 28.5 35 27.5 46 Z"
+          fill={c}
+        />
+      );
+    case "swoop-classic":
+      // The original swoop, kept byte-for-byte: it is Trump's established look.
+      return (
+        <path
+          d="M24 40 q-3 -18 26 -19 q22 -1 26 12 q1 6 -2 9 q1 -8 -8 -9 q-22 -3 -30 2 q-8 4 -6 12 q-5 -1 -6 -7"
           fill={c}
         />
       );
@@ -367,7 +376,6 @@ function FacialHair({ cfg }: { cfg: AvatarConfig }) {
         <g fill={c}>
           {/* A thin line following the jaw rather than a full beard. */}
           <path d="M31.5 53 C31.5 68 39.5 73.5 50 73.5 C60.5 73.5 68.5 68 68.5 53 C66.5 65.5 60 69.5 50 69.5 C40 69.5 33.5 65.5 31.5 53 Z" />
-          <path d="M41 57.5 q9 -4 18 0 q-4.5 3.5 -9 2.5 q-4.5 1 -9 -2.5" />
         </g>
       );
     case "stubble":
@@ -432,15 +440,6 @@ function Accessory({ cfg }: { cfg: AvatarConfig }) {
             fill={c}
           />
           <path d="M71.5 31 L78.5 28 L76.5 34 L80.5 36.5 L73.5 37 Z" fill={c} />
-          <g fill={cfg.clothingAccent ?? "#e6e6e8"} opacity="0.85">
-            <circle cx="34" cy="36.5" r="1.3" />
-            <circle cx="42" cy="33.5" r="1.3" />
-            <circle cx="50" cy="32.6" r="1.3" />
-            <circle cx="58" cy="33.5" r="1.3" />
-            <circle cx="66" cy="36.5" r="1.3" />
-            <circle cx="38" cy="39.5" r="1" />
-            <circle cx="62" cy="39.5" r="1" />
-          </g>
         </g>
       );
     default:
