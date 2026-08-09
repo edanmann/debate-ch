@@ -3,12 +3,20 @@
  * !! brilliant rebuttal · ! great point · ?! inaccuracy · ?? blunder.
  */
 
-export type SpeechVerdict = "brilliant" | "great" | "inaccuracy" | "blunder";
+export type SpeechVerdict =
+  | "brilliant"
+  | "great"
+  | "good"
+  | "inaccuracy"
+  | "mistake"
+  | "blunder";
 
 const STYLES: Record<SpeechVerdict, { mark: string; bg: string; label: string }> = {
   brilliant: { mark: "!!", bg: "#26c2a3", label: "Brilliant rebuttal" },
   great: { mark: "!", bg: "#4fa8e0", label: "Great point" },
+  good: { mark: "✓", bg: "#7aa64f", label: "Solid point" },
   inaccuracy: { mark: "?!", bg: "#e0a03d", label: "Inaccuracy" },
+  mistake: { mark: "?", bg: "#e08c3d", label: "Mistake" },
   blunder: { mark: "??", bg: "#e0614f", label: "Blunder" },
 };
 

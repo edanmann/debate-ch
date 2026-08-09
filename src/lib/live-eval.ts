@@ -78,7 +78,9 @@ function gradeSpeech(text: string, opponentText: string): {
 const VERDICT_WEIGHT: Record<SpeechVerdict, number> = {
   brilliant: 2.0,
   great: 1.0,
+  good: 0.4,
   inaccuracy: -0.6,
+  mistake: -1.1,
   blunder: -1.6,
 };
 

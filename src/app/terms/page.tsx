@@ -14,7 +14,8 @@ export default function TermsPage() {
         <section>
           <h2 className="font-bold text-fg">1. The service</h2>
           <p>
-            Debates.ch provides debate practice against AI opponents, AI-assisted
+            Debates.ch provides debate practice against debate bots, which are AI
+            systems, plus AI-assisted
             judging, lessons, puzzles and analysis tools. AI output is generated
             content that can be wrong; it is provided for education and
             entertainment, not professional advice.

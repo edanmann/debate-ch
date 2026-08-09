@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Debates.ch",
   },
   description:
-    "Debate people or distinctive AI opponents, receive clear analysis and sharpen the skills that make arguments matter.",
+    "Debate people or distinctive debate bots, receive clear analysis and sharpen the skills that make arguments matter.",
 };
 
 export const viewport: Viewport = {
