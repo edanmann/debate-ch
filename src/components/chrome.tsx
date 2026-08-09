@@ -10,7 +10,6 @@ import {
   BotColor,
   DebateColor,
   HomeColor,
-  DiscordGlyph,
   FriendsColor,
   HistoryColor,
   InstagramGlyph,
@@ -19,7 +18,6 @@ import {
   ProfileColor,
   PuzzleColor,
   SettingsColor,
-  TikTokGlyph,
   WatchColor,
   XGlyph,
   YouTubeGlyph,
@@ -145,11 +143,13 @@ function GuestHeader() {
 }
 
 const SOCIALS = [
-  { label: "X", Glyph: XGlyph },
-  { label: "TikTok", Glyph: TikTokGlyph },
-  { label: "YouTube", Glyph: YouTubeGlyph },
-  { label: "Instagram", Glyph: InstagramGlyph },
-  { label: "Discord", Glyph: DiscordGlyph },
+  { label: "Instagram", href: "https://www.instagram.com/debatesapp/", Glyph: InstagramGlyph },
+  { label: "X", href: "https://x.com/AppDebates", Glyph: XGlyph },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/channel/UC3SZfMUKNCt5VCCdsBFvADw",
+    Glyph: YouTubeGlyph,
+  },
 ];
 
 export function Footer() {
@@ -189,14 +189,18 @@ export function Footer() {
             Debate anyone. Improve every round.
           </p>
           <div className="mt-4 flex gap-2">
-            {SOCIALS.map(({ label, Glyph }) => (
-              <span
+            {SOCIALS.map(({ label, href, Glyph }) => (
+              <a
                 key={label}
-                className="grid h-9 w-9 cursor-not-allowed place-items-center rounded-lg border border-border-subtle text-fg-muted"
-                title={`${label} — coming soon`}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                title={label}
+                className="grid h-9 w-9 place-items-center rounded-lg border border-border-subtle text-fg-muted transition-colors hover:border-brand hover:text-fg"
               >
                 <Glyph className="h-4.5 w-4.5" />
-              </span>
+              </a>
             ))}
           </div>
           <div className="mt-4 flex gap-2">

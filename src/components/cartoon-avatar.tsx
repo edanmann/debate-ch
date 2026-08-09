@@ -13,10 +13,12 @@ export interface AvatarConfig {
     | "bald-fringe"
     | "short"
     | "crew"
+    | "buzz"
     | "swoop"
     | "side-part"
     | "curly"
     | "bun"
+    | "top-knot"
     | "dreads"
     | "long"
     | "bob"
@@ -24,18 +26,31 @@ export interface AvatarConfig {
     | "ponytail"
     | "wild"
     | "afro"
+    | "quiff"
+    | "comb-over"
+    | "swept-back"
+    | "crop"
+    | "locs-up"
     | "slick-back"
     | "receding";
   hairColor: string;
-  facialHair?: "none" | "mustache" | "beard" | "full" | "goatee" | "stubble";
+  /** Grey at the temples, for characters who read as middle-aged. */
+  hairGrey?: boolean;
+  facialHair?: "none" | "mustache" | "beard" | "full" | "goatee" | "stubble" | "chinstrap";
   facialHairColor?: string;
   glasses?: "none" | "square" | "round";
-  brows?: "normal" | "stern" | "raised";
+  /** Frame colour; defaults to near-black. */
+  glassesColor?: string;
+  brows?: "normal" | "stern" | "raised" | "thick";
   mouth?: "smile" | "grin" | "neutral" | "smirk";
+  /** Prominent upper front teeth, shown with a grin. */
+  teeth?: "normal" | "buck";
+  /** Oversized ears, a strong recognition cue on some faces. */
+  ears?: "normal" | "large";
   clothing: "suit" | "turtleneck" | "hoodie" | "jersey" | "sweater" | "shirt" | "tshirt" | "robe";
   clothingColor: string;
   clothingAccent?: string;
-  accessory?: "none" | "wig" | "cat-ears" | "headphones" | "cap" | "pearls" | "headband";
+  accessory?: "none" | "wig" | "cat-ears" | "headphones" | "cap" | "pearls" | "headband" | "bandana";
   accessoryColor?: string;
   ageLines?: boolean;
   blush?: boolean;
@@ -55,6 +70,68 @@ export const DEFAULT_AVATAR: AvatarConfig = {
   clothingColor: "#5b7d9e",
 };
 
+/**
+ * Hair geometry.
+ *
+ * The skull is an ellipse at cx 50, cy 47, rx 24, ry 26 — so its crown sits at
+ * y 21 and its sides at x 26/74. Every style below starts from an outer cap
+ * that deliberately overshoots those bounds (crown ~y 15, sides ~x 22/78) and
+ * then cuts a hairline back in. Overshooting is what stops a sliver of scalp
+ * showing through between the hair and the top of the head.
+ */
+
+/**
+ * Outer cap: left side → crown → right side.
+ *
+ * It *starts and ends on the skull edge* (x 26/74 at y 47) and bulges outside
+ * the skull everywhere above that. Anchoring the ends this way is what stops a
+ * sliver of background showing between the side of the head and the hair —
+ * a cap that is wider than the skull at ear height leaves exactly that gap.
+ */
+const CAP = "M26 47 C25 24 33 15.5 50 15.5 C67 15.5 75 24 74 47";
+/** Lower-volume cap for cropped styles. */
+const CAP_LOW = "M26.5 46 C26 26 34 18 50 18 C66 18 74 26 73.5 46";
+
+/** Hairline curves, written right → left to close the cap into a crescent. */
+const HAIRLINE = {
+  /** Rounded, sits mid-forehead. */
+  round: "C73 37 67 30 50 30 C33 30 27 37 26 47 Z",
+  /** Cropped: higher on the forehead. */
+  high: "C72.5 37 66.5 32 50 32 C33.5 32 27.5 37 26.5 46 Z",
+  /** Buzzed: barely leaves a forehead at all. */
+  tight: "C72.5 39 66.5 34 50 34 C33.5 34 27.5 39 26.5 46 Z",
+  /** Combed straight back — a clean, high line. */
+  back: "C73 35 67 27.5 50 27.5 C33 27.5 27 35 26 47 Z",
+  /** Temples pulled back, centre still high. */
+  receded: "C73 38 70 30 63 28 C57.5 25.5 42.5 25.5 37 28 C30 30 27 38 26 47 Z",
+} as const;
+
+/** Main filled shape for a style, reused by the greying pass. */
+function hairSilhouette(cfg: AvatarConfig): string | null {
+  switch (cfg.hair) {
+    case "receding":
+      return `${CAP} ${HAIRLINE.receded}`;
+    case "short":
+    case "curly":
+    case "dreads":
+    case "wild":
+      return `${CAP} ${HAIRLINE.round}`;
+    case "crew":
+      return `${CAP_LOW} ${HAIRLINE.high}`;
+    case "buzz":
+      return `${CAP_LOW} ${HAIRLINE.tight}`;
+    case "slick-back":
+    case "bun":
+    case "top-knot":
+    case "ponytail":
+      return `${CAP} ${HAIRLINE.back}`;
+    case "side-part":
+      return `${CAP} C73.5 35 68 29.5 56 29 C57 30.5 57.2 31.6 56.4 32.4 C48 29.6 34.5 30 29.5 34.5 C27 37 26.5 41 26 47 Z`;
+    default:
+      return null;
+  }
+}
+
 function Hair({ cfg }: { cfg: AvatarConfig }) {
   const c = cfg.hairColor;
   switch (cfg.hair) {
@@ -62,84 +139,204 @@ function Hair({ cfg }: { cfg: AvatarConfig }) {
       return null;
     case "bald-fringe":
       return (
-        <path d="M24 44 q0 -10 6 -14 q-2 8 2 10 l0 6 q-5 2 -8 -2 M76 44 q0 -10 -6 -14 q2 8 -2 10 l0 6 q5 2 8 -2" fill={c} />
+        <path
+          d="M26 46 C26 36 28.5 29 33 26 C31 34 33 39 35 41 L35 48 C31.5 50 27.5 49 26 46 Z M74 46 C74 36 71.5 29 67 26 C69 34 67 39 65 41 L65 48 C68.5 50 72.5 49 74 46 Z"
+          fill={c}
+        />
       );
     case "receding":
-      return (
-        <path d="M26 40 q-1 -16 24 -17 q25 1 24 17 q-1 -8 -10 -9 q-4 -2 -14 -2 q-10 0 -14 2 q-9 1 -10 9" fill={c} />
-      );
+      return <path d={`${CAP} ${HAIRLINE.receded}`} fill={c} />;
     case "short":
-      return <path d="M25 42 q-2 -20 25 -20 q27 0 25 20 q-2 -9 -8 -11 q-8 -4 -17 -4 q-9 0 -17 4 q-6 2 -8 11" fill={c} />;
+      return <path d={`${CAP} ${HAIRLINE.round}`} fill={c} />;
     case "crew":
-      return <path d="M26 38 q0 -15 24 -15 q24 0 24 15 l-2 4 q-4 -10 -22 -10 q-18 0 -22 10 z" fill={c} />;
+      return <path d={`${CAP_LOW} ${HAIRLINE.high}`} fill={c} />;
+    case "buzz":
+      return <path d={`${CAP_LOW} ${HAIRLINE.tight}`} fill={c} />;
     case "swoop":
       return (
-        <path d="M24 40 q-3 -18 26 -19 q22 -1 26 12 q1 6 -2 9 q1 -8 -8 -9 q-22 -3 -30 2 q-8 4 -6 12 q-5 -1 -6 -7" fill={c} />
+        <path
+          d={`${CAP} C73 36 68 28.5 58 28 C45 27 34 30.5 30.5 38.5 C29 42.5 29 46 30 49.5 C28 49 26.5 49.5 26 47 Z`}
+          fill={c}
+        />
       );
     case "side-part":
       return (
-        <path d="M25 42 q-2 -19 25 -19 q26 0 25 18 q-1 -8 -12 -10 q3 4 1 6 q-14 -8 -30 -3 q-7 3 -9 8" fill={c} />
+        <path
+          d={`${CAP} C73.5 35 68 29.5 56 29 C57 30.5 57.2 31.6 56.4 32.4 C48 29.6 34.5 30 29.5 34.5 C27 37 26.5 41 26 47 Z`}
+          fill={c}
+        />
+      );
+    case "quiff":
+      return (
+        // Tight sides with the volume pushed up and forward at the front.
+        <path
+          d="M27.5 46 C27 34 28.5 26.5 32.5 21 C37 15.5 43 10.5 50.5 10 C61.5 9.5 73 20 73.5 46 C72.5 35 65.5 30.5 50 30.5 C34.5 30.5 28.5 35 27.5 46 Z"
+          fill={c}
+        />
+      );
+    case "comb-over":
+      return (
+        // Volume swept up and across, flaring wider than the head above the
+        // ears — the whole silhouette, not just the colour, does the work.
+        <g>
+          <path
+            d="M26 47 C24 33 25.5 19 35 14 C44 10 56.5 10.5 64.5 15 C73 20 76 33 74 47 C73 39 70.5 33.5 63 32 C55 30 41 32.5 34.5 38 C31 41 27.5 43.5 26 47 Z"
+            fill={c}
+          />
+          {/* The comb line: what makes it read as swept rather than a helmet. */}
+          <path
+            d="M31 29 C41 21.5 55 20.5 69 26"
+            stroke="#00000026"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+          />
+        </g>
+      );
+    case "swept-back":
+      return (
+        // Deep temple recessions with a small central peak between them.
+        <path
+          d="M26 47 C24.5 25 32 13 50 13 C68 13 75.5 25 74 47 C73 36 71 29.5 63 28 C58.5 27.5 54 28.5 50 31 C46 28.5 41.5 27.5 37 28 C29 29.5 27 36 26 47 Z"
+          fill={c}
+        />
+      );
+    case "crop":
+      return (
+        <g fill={c}>
+          {/* Tight sides, low straight hairline, a little texture on top. */}
+          <path d="M26.5 46 C26 34 27.5 25 33 20.5 C39 16 45 14.6 51 14.9 C61 15.4 71.5 21 73 33 C73.6 37.5 73.8 42 73.5 46 C72.5 37.5 66 32.5 50 32.5 C34 32.5 27.5 37 26.5 46 Z" />
+          {/* Faded sides: the hair thins as it drops toward the ears. */}
+          <path
+            d="M27 44 C27.5 37.5 30 33.5 34 31.5 C31.5 35.5 30.5 40 30.5 45 Z M73 44 C72.5 37.5 70 33.5 66 31.5 C68.5 35.5 69.5 40 69.5 45 Z"
+            opacity="0.55"
+          />
+        </g>
+      );
+    case "locs-up":
+      return (
+        <g fill={c}>
+          <path d={`${CAP} ${HAIRLINE.round}`} />
+          {/* Locs flicking upward, the way they sit above a tied band. */}
+          <path d="M33 23 C29 17 27.5 11 30 7.5 C31 12 34.5 16.5 38 20 Z" />
+          <path d="M41.5 20 C39.5 14 39 8.5 41.5 5.5 C43 10.5 45.5 14.5 47 17.5 Z" />
+          <path d="M50.5 18.5 C50 12.5 51.5 7.5 54.5 5.5 C53.5 10.5 55 14 56.5 17 Z" />
+          <path d="M60 20 C61.5 14.5 64 10 67 8.5 C64.5 12.5 63.5 16.5 64 19.5 Z" />
+          <path d="M67 24 C70 19 73.5 15.5 76.5 14.5 C73.5 18.5 71.5 22.5 71.5 26 Z" />
+          <path d="M45.5 17 C45 11.5 46.5 7.5 49 6 C47.5 10 47.5 13.5 48.5 16.5 Z" />
+        </g>
       );
     case "curly":
       return (
         <g fill={c}>
-          <circle cx="32" cy="32" r="8" /><circle cx="42" cy="27" r="8" />
-          <circle cx="52" cy="26" r="8" /><circle cx="62" cy="28" r="8" />
-          <circle cx="69" cy="34" r="7" /><circle cx="27" cy="40" r="6" />
-          <circle cx="73" cy="42" r="6" />
+          {/* Solid base first: the curls only add silhouette, never coverage. */}
+          <path d={`${CAP} ${HAIRLINE.round}`} />
+          <circle cx="30" cy="34" r="8.5" />
+          <circle cx="40" cy="26" r="9" />
+          <circle cx="51" cy="23.5" r="9" />
+          <circle cx="62" cy="26" r="9" />
+          <circle cx="71" cy="34" r="8.5" />
+          <circle cx="25.5" cy="43" r="6.5" />
+          <circle cx="74.5" cy="43" r="6.5" />
         </g>
       );
     case "bun":
       return (
         <g fill={c}>
-          <circle cx="50" cy="20" r="8" />
-          <path d="M26 42 q-2 -18 24 -18 q26 0 24 18 q-4 -12 -24 -12 q-20 0 -24 12" />
+          <circle cx="50" cy="18" r="8.5" />
+          <path d={`${CAP} ${HAIRLINE.back}`} />
+        </g>
+      );
+    case "top-knot":
+      return (
+        <g fill={c}>
+          {/* Knot gathered high at the back, reading as a bump behind the crown. */}
+          <ellipse cx="63" cy="17" rx="9" ry="7.5" />
+          <path d={`${CAP} ${HAIRLINE.back}`} />
+          <path d="M60 21 C68 22 72 27 72 33 C69 28 65 25 59 24 Z" />
         </g>
       );
     case "dreads":
       return (
         <g fill={c}>
-          <path d="M26 42 q-2 -18 24 -18 q26 0 24 18 q-4 -11 -24 -11 q-20 0 -24 11" />
-          <rect x="24" y="36" width="5" height="14" rx="2.5" />
-          <rect x="31" y="30" width="5" height="12" rx="2.5" />
-          <rect x="64" y="30" width="5" height="12" rx="2.5" />
-          <rect x="71" y="36" width="5" height="14" rx="2.5" />
+          <path d={`${CAP} ${HAIRLINE.round}`} />
+          <rect x="22" y="34" width="5.5" height="17" rx="2.75" />
+          <rect x="29" y="27" width="5.5" height="15" rx="2.75" />
+          <rect x="65.5" y="27" width="5.5" height="15" rx="2.75" />
+          <rect x="72.5" y="34" width="5.5" height="17" rx="2.75" />
         </g>
       );
     case "long":
       return (
-        <path d="M24 70 l0 -28 q0 -18 26 -18 q26 0 26 18 l0 28 q-6 4 -12 2 l0 -26 q-14 -6 -28 0 l0 26 q-6 2 -12 -2" fill={c} />
+        <path
+          d="M21 80 C19 32 32 15.5 50 15.5 C68 15.5 81 32 79 80 L69.5 78 C71.5 46 70 34 64 30 C56.5 25 43.5 25 36 30 C30 34 28.5 46 30.5 78 Z"
+          fill={c}
+        />
       );
     case "bob":
       return (
-        <path d="M24 60 q-4 -34 26 -35 q30 1 26 35 l-8 2 q2 -18 -4 -24 q-14 -6 -28 0 q-6 6 -4 24 z" fill={c} />
+        <path
+          d="M21.5 65 C19.5 31 32 15.5 50 15.5 C68 15.5 80.5 31 78.5 65 L69.5 65.5 C71.5 45 70 34 64 30 C56.5 25 43.5 25 36 30 C30 34 28.5 45 30.5 65.5 Z"
+          fill={c}
+        />
       );
     case "bouffant":
       return (
-        <path d="M23 48 q-6 -26 27 -27 q33 1 27 27 q-3 3 -6 2 q3 -16 -7 -19 q-14 -5 -28 0 q-10 3 -7 19 q-3 1 -6 -2" fill={c} />
+        <path
+          d="M21 50 C19 22 32 11.5 50 11.5 C68 11.5 81 22 79 50 C77 51 75 51 74 49.5 C76 32 71 27 64 25.5 C56.5 23 43.5 23 36 25.5 C29 27 24 32 26 49.5 C25 51 23 51 21 50 Z"
+          fill={c}
+        />
       );
     case "ponytail":
       return (
         <g fill={c}>
-          <path d="M25 44 q-2 -20 25 -20 q27 0 25 20 q-3 -11 -25 -11 q-22 0 -25 11" />
-          <path d="M70 34 q12 6 8 26 q-3 10 -8 12 q4 -12 2 -22 q-1 -8 -6 -12 z" />
+          <path d="M69 32 C81 39 79 58 73 70 C71 73 68 74 66 73 C71 62 72 50 68 42 Z" />
+          <path d={`${CAP} ${HAIRLINE.back}`} />
         </g>
       );
     case "wild":
       return (
         <g fill={c}>
-          <path d="M26 44 q-8 -24 24 -22 q34 -2 24 24 q-4 -12 -24 -12 q-18 0 -24 10" />
-          <path d="M22 36 l-6 -8 6 2 -2 -8 6 6 0 -8 5 8z" />
-          <path d="M78 36 l6 -8 -6 2 2 -8 -6 6 0 -8 -5 8z" />
+          <path d={`${CAP} ${HAIRLINE.round}`} />
+          <path d="M23 33 l-7 -9 7 2 -3 -9 7 7 0 -9 6 9 z" />
+          <path d="M77 33 l7 -9 -7 2 3 -9 -7 7 0 -9 -6 9 z" />
+          <path d="M50 15 l-4 -11 7 5 3 -8 3 9 6 -5 -3 11 z" />
         </g>
       );
     case "afro":
-      return <circle cx="50" cy="34" r="22" fill={c} />;
+      return <circle cx="50" cy="31" r="24" fill={c} />;
     case "slick-back":
-      return <path d="M25 40 q-1 -17 25 -17 q26 0 25 17 q-2 -10 -25 -10 q-23 0 -25 10" fill={c} />;
+      return <path d={`${CAP} ${HAIRLINE.back}`} fill={c} />;
     default:
       return null;
   }
+}
+
+/**
+ * Grey at the temples. Painted as a second pass of the *same* silhouette with
+ * a gradient that only reaches the sides, so the grey can never spill onto the
+ * forehead or over an ear the way free-floating patches would.
+ */
+const GREY_GRADIENT_ID = "debates-hair-grey";
+
+function TempleGrey({ cfg, gradientId }: { cfg: AvatarConfig; gradientId: string }) {
+  const d = hairSilhouette(cfg);
+  if (!cfg.hairGrey || !d) return null;
+  return (
+    <>
+      <defs>
+        <linearGradient id={gradientId} x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stopColor="#d5d2cc" stopOpacity="0.6" />
+          <stop offset="0.12" stopColor="#d5d2cc" stopOpacity="0.34" />
+          <stop offset="0.24" stopColor="#d5d2cc" stopOpacity="0" />
+          <stop offset="0.76" stopColor="#d5d2cc" stopOpacity="0" />
+          <stop offset="0.88" stopColor="#d5d2cc" stopOpacity="0.34" />
+          <stop offset="1" stopColor="#d5d2cc" stopOpacity="0.6" />
+        </linearGradient>
+      </defs>
+      <path d={d} fill={`url(#${gradientId})`} />
+    </>
+  );
 }
 
 function FacialHair({ cfg }: { cfg: AvatarConfig }) {
@@ -163,6 +360,14 @@ function FacialHair({ cfg }: { cfg: AvatarConfig }) {
         <g fill={c}>
           <path d="M29 50 q-1 24 21 24 q22 0 21 -24 l-4 -2 q2 18 -8 20 l0 -8 q-9 5 -18 0 l0 8 q-10 -2 -8 -20 z" />
           <path d="M40 59 q10 -5 20 0 q-5 4 -10 3 q-5 1 -10 -3" />
+        </g>
+      );
+    case "chinstrap":
+      return (
+        <g fill={c}>
+          {/* A thin line following the jaw rather than a full beard. */}
+          <path d="M31.5 53 C31.5 68 39.5 73.5 50 73.5 C60.5 73.5 68.5 68 68.5 53 C66.5 65.5 60 69.5 50 69.5 C40 69.5 33.5 65.5 31.5 53 Z" />
+          <path d="M41 57.5 q9 -4 18 0 q-4.5 3.5 -9 2.5 q-4.5 1 -9 -2.5" />
         </g>
       );
     case "stubble":
@@ -218,6 +423,26 @@ function Accessory({ cfg }: { cfg: AvatarConfig }) {
       );
     case "headband":
       return <rect x="27" y="30" width="46" height="6" rx="3" fill={c} />;
+    case "bandana":
+      return (
+        <g>
+          {/* Tied band across the brow, knotted off to one side. */}
+          <path
+            d="M26 43 C26 32.5 34 25.5 50 25.5 C66 25.5 74 32.5 74 43 C74 36.5 66 31 50 31 C34 31 26 36.5 26 43 Z"
+            fill={c}
+          />
+          <path d="M71.5 31 L78.5 28 L76.5 34 L80.5 36.5 L73.5 37 Z" fill={c} />
+          <g fill={cfg.clothingAccent ?? "#e6e6e8"} opacity="0.85">
+            <circle cx="34" cy="36.5" r="1.3" />
+            <circle cx="42" cy="33.5" r="1.3" />
+            <circle cx="50" cy="32.6" r="1.3" />
+            <circle cx="58" cy="33.5" r="1.3" />
+            <circle cx="66" cy="36.5" r="1.3" />
+            <circle cx="38" cy="39.5" r="1" />
+            <circle cx="62" cy="39.5" r="1" />
+          </g>
+        </g>
+      );
     default:
       return null;
   }
@@ -387,6 +612,7 @@ export function CartoonAvatar({
   const brows = cfg.brows ?? "normal";
   const browY = brows === "raised" ? -2 : 0;
   const browTilt = brows === "stern" ? 3 : 0;
+  const browWeight = brows === "thick" ? 4 : 2.6;
 
   return (
     <span
@@ -411,8 +637,17 @@ export function CartoonAvatar({
         {/* head */}
         <ellipse cx="50" cy="47" rx="24" ry="26" fill={cfg.skin} />
         {/* ears */}
-        <circle cx="26" cy="49" r="5" fill={cfg.skin} />
-        <circle cx="74" cy="49" r="5" fill={cfg.skin} />
+        {cfg.ears === "large" ? (
+          <g fill={cfg.skin}>
+            <ellipse cx="24.5" cy="48" rx="5.5" ry="7" />
+            <ellipse cx="75.5" cy="48" rx="5.5" ry="7" />
+          </g>
+        ) : (
+          <g fill={cfg.skin}>
+            <circle cx="26" cy="49" r="5" />
+            <circle cx="74" cy="49" r="5" />
+          </g>
+        )}
         {/* age lines */}
         {cfg.ageLines && (
           <g stroke="#00000030" strokeWidth="1.6" fill="none">
@@ -429,7 +664,7 @@ export function CartoonAvatar({
         {/* brows — exaggerated speakers waggle them while talking */}
         <g
           stroke={cfg.facialHairColor ?? cfg.hairColor}
-          strokeWidth="2.6"
+          strokeWidth={browWeight}
           strokeLinecap="round"
           className={cfg.expressive && speaking ? "brow-waggle" : undefined}
         >
@@ -443,14 +678,14 @@ export function CartoonAvatar({
         </g>
         {/* glasses */}
         {cfg.glasses === "square" && (
-          <g fill="none" stroke="#1f1c1a" strokeWidth="2.2">
+          <g fill="none" stroke={cfg.glassesColor ?? "#1f1c1a"} strokeWidth="2.2">
             <rect x="33" y="41.5" width="15" height="11" rx="3" />
             <rect x="52" y="41.5" width="15" height="11" rx="3" />
             <line x1="48" y1="46" x2="52" y2="46" />
           </g>
         )}
         {cfg.glasses === "round" && (
-          <g fill="none" stroke="#1f1c1a" strokeWidth="2.2">
+          <g fill="none" stroke={cfg.glassesColor ?? "#1f1c1a"} strokeWidth="2.6">
             <circle cx="40.5" cy="47" r="7" />
             <circle cx="59.5" cy="47" r="7" />
             <line x1="47.5" y1="46" x2="52.5" y2="46" />
@@ -468,6 +703,18 @@ export function CartoonAvatar({
             fill="#5b2f2f"
             className="mouth-talk"
           />
+        ) : mouth === "grin" && cfg.teeth === "buck" ? (
+          <g>
+            <path
+              d="M37.5 58 L62.5 58 C61.5 72.5 38.5 72.5 37.5 58 Z"
+              fill="#5e2b2b"
+              stroke="#4a2222"
+              strokeWidth="1.4"
+              strokeLinejoin="round"
+            />
+            <rect x="44" y="58" width="5.6" height="8.4" rx="1.4" fill="#ffffff" />
+            <rect x="50.4" y="58" width="5.6" height="8.4" rx="1.4" fill="#ffffff" />
+          </g>
         ) : mouth === "grin" ? (
           <path d="M41 60 q9 9 18 0 q-4 6 -9 6 q-5 0 -9 -6" fill="#ffffff" stroke="#5b2f2f" strokeWidth="1.4" />
         ) : mouth === "neutral" ? (
@@ -481,6 +728,7 @@ export function CartoonAvatar({
         <FacialHair cfg={cfg} />
         {/* hair + accessories on top */}
         <Hair cfg={cfg} />
+        <TempleGrey cfg={cfg} gradientId={GREY_GRADIENT_ID} />
         <Accessory cfg={cfg} />
         {/* gesturing hands sit in front of everything */}
         <Hands cfg={cfg} speaking={speaking} />
