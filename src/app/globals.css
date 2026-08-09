@@ -183,3 +183,30 @@ body {
   animation-timing-function: linear;
   animation-fill-mode: both;
 }
+
+/* Closing glyph band: two speeds, opposite directions, so the rows never
+   lock into a single sliding block. The row content is duplicated in the
+   markup, which is why -50% is a seamless loop point. */
+@keyframes glyph-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.glyph-drift {
+  animation: glyph-drift 90s linear infinite;
+}
+
+.glyph-drift-alt {
+  animation: glyph-drift 120s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph-drift,
+  .glyph-drift-alt {
+    animation: none;
+  }
+}

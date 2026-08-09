@@ -2,6 +2,7 @@ import { getBotCards } from "@/lib/bots";
 import { BotCard } from "@/components/bot-card";
 import HeroLiveMock from "@/components/landing/hero-live-mock";
 import AppPhoneMock from "@/components/landing/app-phone-mock";
+import GlyphBand from "@/components/landing/glyph-band";
 import WatchLiveMock from "@/components/landing/watch-live-mock";
 import { Mascot } from "@/components/landing/mascot";
 import { Badge, ButtonLink } from "@/components/ui";
@@ -259,7 +260,8 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="mx-auto max-w-4xl px-4 py-20 text-center">
+      <GlyphBand />
+      <section className="mx-auto max-w-4xl px-4 pb-20 pt-4 text-center">
         <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
           Learn, debate and have fun.
         </h2>
