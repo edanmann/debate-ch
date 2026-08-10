@@ -130,8 +130,8 @@ const COUNTS: { verdict: SpeechVerdict; label: string; trump: number; musk: numb
 ];
 
 const SPEAKERS = {
-  trump: { slug: "donald-trump", name: "Trump", accuracy: "61.4" },
-  musk: { slug: "elon-musk", name: "Musk", accuracy: "88.2" },
+  trump: { slug: "donald-trump", name: "Trump", score: "61.4" },
+  musk: { slug: "elon-musk", name: "Musk", score: "88.2" },
 } as const;
 
 /** Evaluation history: green area is For's share of the round. */
@@ -206,6 +206,19 @@ function EvalBar({ evaluation }: { evaluation: number }) {
   );
 }
 
+/** Always-available escape hatch back to the beginning of the review. */
+function RestartButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex shrink-0 items-center gap-1 rounded-lg bg-board-2 px-2 py-1 text-[11px] font-bold text-ink-muted transition-colors hover:bg-white"
+    >
+      <span aria-hidden>↺</span> Start over
+    </button>
+  );
+}
+
 function Bubble({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-2">
@@ -224,6 +237,12 @@ export default function DebateReviewMock() {
   const turn = TURNS[index];
   const activeLine = useRef<HTMLLIElement>(null);
 
+
+  const restart = () => {
+    setStage("result");
+    setIndex(0);
+  };
+
   // The transcript scrolls independently, so bring the current turn back into
   // view whenever it changes — otherwise stepping silently moves off-screen.
   useEffect(() => {
@@ -240,13 +259,20 @@ export default function DebateReviewMock() {
             {MOTION}
           </p>
 
-          <div className="mt-3 flex items-center justify-center gap-6">
+          <div className="mt-3 flex items-start justify-center gap-8">
             {(["trump", "musk"] as const).map((k) => (
               <div key={k} className="text-center">
                 <BotFace slug={SPEAKERS[k].slug} name={SPEAKERS[k].name} size={56} />
                 <p className="mt-1 text-xs font-bold">{SPEAKERS[k].name}</p>
-                <p className="numeric text-[11px] text-ink-muted">
-                  {k === "trump" ? "−0.09" : "+0.09"} OVR
+                <p
+                  className={`numeric mt-1 rounded-lg px-3 py-1 text-lg font-black ${
+                    k === "musk" ? "bg-[#81b64c] text-white" : "bg-board-2"
+                  }`}
+                >
+                  {SPEAKERS[k].score}
+                </p>
+                <p className="text-[9px] font-black uppercase tracking-widest text-ink-muted">
+                  Total score
                 </p>
               </div>
             ))}
@@ -286,7 +312,11 @@ export default function DebateReviewMock() {
       {/* ---------------------------------------------------------------- */}
       {stage === "summary" && (
         <div>
-          <p className="text-center text-sm font-black">Debate Review</p>
+          <div className="flex items-center justify-between gap-2">
+            <RestartButton onClick={restart} />
+            <p className="text-sm font-black">Debate Review</p>
+            <span className="w-[5.25rem]" aria-hidden />
+          </div>
           <div className="mt-3">
             <Bubble>
               He built a lead on one distinction and never gave it back. Here&apos;s
@@ -305,12 +335,12 @@ export default function DebateReviewMock() {
               <span className="text-center">Musk</span>
             </div>
             <div className="mt-2 grid grid-cols-[1fr_3rem_3rem] items-center gap-2">
-              <span className="text-[11px] font-semibold">Accuracy</span>
+              <span className="text-[11px] font-semibold">Total score</span>
               <span className="numeric rounded-lg bg-board-2 py-1 text-center text-xs font-black">
-                {SPEAKERS.trump.accuracy}
+                {SPEAKERS.trump.score}
               </span>
               <span className="numeric rounded-lg bg-[#81b64c] py-1 text-center text-xs font-black text-white">
-                {SPEAKERS.musk.accuracy}
+                {SPEAKERS.musk.score}
               </span>
             </div>
             <div className="mt-2 space-y-1.5 border-t border-[#e6e4db] pt-2">
@@ -346,14 +376,15 @@ export default function DebateReviewMock() {
       {/* ---------------------------------------------------------------- */}
       {stage === "review" && (
         <div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
+            <RestartButton onClick={restart} />
             <p className="text-sm font-black">Debate Review</p>
             <button
               type="button"
               onClick={() => setStage("summary")}
-              className="text-[11px] font-bold text-ink-muted underline underline-offset-2"
+              className="shrink-0 text-[11px] font-bold text-ink-muted underline underline-offset-2"
             >
-              Back to summary
+              Summary
             </button>
           </div>
 

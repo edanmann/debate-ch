@@ -160,22 +160,28 @@ export default function GlyphBand() {
       className="pointer-events-none relative select-none overflow-hidden py-10 [mask-image:linear-gradient(to_bottom,transparent,#000_18%,#000_70%,transparent)]"
     >
       <div className="flex flex-col gap-7 sm:gap-9">
-        {ROWS.map((row, i) => (
-          <div
-            key={i}
-            // Duplicated once so translating by half the width loops seamlessly.
-            className={`flex w-max shrink-0 items-center gap-7 sm:gap-9 ${
-              i % 2 === 1 ? "glyph-drift-alt" : "glyph-drift"
-            }`}
-            style={{ marginLeft: `${i * -3}rem` }}
-          >
-            {[...row, ...row].map((tile, j) => (
-              <span key={j} className="block h-11 shrink-0 sm:h-14">
-                <Glyph tile={tile} />
-              </span>
-            ))}
-          </div>
-        ))}
+        {ROWS.map((row, i) => {
+          // Each row repeats enough times to overrun any desktop viewport,
+          // then the whole strip is duplicated so translating by half its
+          // width loops seamlessly. Too few copies and a gap opens on wide
+          // screens partway through the drift.
+          const strip = Array.from({ length: 3 }).flatMap(() => row);
+          return (
+            <div
+              key={i}
+              className={`flex w-max shrink-0 items-center gap-7 sm:gap-9 ${
+                i % 2 === 1 ? "glyph-drift-alt" : "glyph-drift"
+              }`}
+              style={{ marginLeft: `${i * -3}rem` }}
+            >
+              {[...strip, ...strip].map((tile, j) => (
+                <span key={j} className="block h-11 shrink-0 sm:h-14">
+                  <Glyph tile={tile} />
+                </span>
+              ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

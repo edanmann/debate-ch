@@ -2,147 +2,186 @@
  * Puzzles-section illustration.
  *
  * An isometric ladder of tiles climbing from left to right, each carrying a
- * debate skill, with the next one up lit. It shows what puzzles are *for* —
- * a progression you climb — rather than showing one puzzle, which people read
- * as "that is what every puzzle looks like".
+ * debate skill, with the next rung lit. It shows what puzzles are *for* — a
+ * progression you climb — rather than showing one puzzle, which people read as
+ * "that is what every puzzle looks like".
+ *
+ * It sits on the same light board panel as every other section visual, so it
+ * belongs to the page rather than floating on the background.
  */
 
-const TILE_W = 96;
-const TILE_H = 54;
+const TILE_W = 92;
+const TILE_H = 52;
 
 interface Tile {
-  /** Grid position; x runs right, y runs down the ladder. */
   cx: number;
   cy: number;
+  /** Extruded side. */
   fill: string;
-  glow?: boolean;
-  dim?: boolean;
+  /** Top face. */
+  top: string;
   icon: "mic" | "bubble" | "bang" | "query" | "scales" | "crown";
+  label: string;
 }
 
-// Positions sit on the isometric lattice: one step up-right is (+52, -29),
-// which is a half-tile in each axis plus a small gap, so the diamonds line up
-// edge to edge instead of overlapping.
-const TILES: Tile[] = [
-  { cx: 170, cy: 323, fill: "#2f4a38", dim: true, icon: "crown" },
-  { cx: 118, cy: 296, fill: "#33513c", dim: true, icon: "bubble" },
-  { cx: 170, cy: 267, fill: "#3d6b48", dim: true, icon: "query" },
-  { cx: 222, cy: 238, fill: "#478053", icon: "scales" },
-  { cx: 274, cy: 209, fill: "#4e8f5c", icon: "bang" },
-  { cx: 326, cy: 180, fill: "#7ee2b0", glow: true, icon: "mic" },
+// One step up-right is (+50, -28): a half-tile in each axis plus a small gap,
+// so the diamonds line up edge to edge instead of overlapping. The greens
+// ascend with the climb, so difficulty reads even in greyscale.
+const LADDER: Tile[] = [
+  { cx: 96, cy: 236, fill: "#a9bd97", top: "#c6d6b6", icon: "bubble", label: "Framing" },
+  { cx: 146, cy: 208, fill: "#9ab884", top: "#b8d2a1", icon: "query", label: "Clash" },
+  { cx: 196, cy: 180, fill: "#8bb46f", top: "#a9cd8a", icon: "scales", label: "Weighing" },
+  { cx: 246, cy: 152, fill: "#7cae59", top: "#9bc973", icon: "bang", label: "Rebuttal" },
+  { cx: 296, cy: 124, fill: "#5f9a37", top: "#8ede63", icon: "mic", label: "Today" },
 ];
 
+/** One tile off the line, so the composition isn't a perfect diagonal. */
+const OFFSHOOT: Tile = {
+  cx: 146,
+  cy: 264,
+  fill: "#b4c5a3",
+  top: "#cddcbe",
+  icon: "crown",
+  label: "Mastery",
+};
+
 function Icon({ kind, x, y }: { kind: Tile["icon"]; x: number; y: number }) {
-  const common = { fill: "#ffffff", opacity: 0.92 };
+  const p = { fill: "#ffffff", opacity: 0.95 };
   switch (kind) {
     case "mic":
       return (
-        <g transform={`translate(${x - 11} ${y - 15})`} {...common}>
-          <rect x="7" y="0" width="10" height="16" rx="5" />
-          <path d="M2 12 a10 10 0 0 0 20 0 h-3 a7 7 0 0 1 -14 0 z" />
-          <rect x="10.5" y="22" width="3" height="7" rx="1.5" />
-          <rect x="5" y="28" width="14" height="3" rx="1.5" />
+        <g transform={`translate(${x - 10} ${y - 14})`} {...p}>
+          <rect x="6" y="0" width="9" height="15" rx="4.5" />
+          <path d="M1.5 11 a9 9 0 0 0 18 0 h-2.8 a6.2 6.2 0 0 1 -12.4 0 z" />
+          <rect x="9" y="20" width="3" height="6" rx="1.5" />
+          <rect x="4" y="25" width="13" height="2.8" rx="1.4" />
         </g>
       );
     case "bubble":
       return (
-        <g transform={`translate(${x - 13} ${y - 11})`} {...common}>
-          <rect x="0" y="0" width="26" height="18" rx="5" />
-          <path d="M5 16 L5 25 L13 17 Z" />
+        <g transform={`translate(${x - 12} ${y - 10})`} {...p}>
+          <rect x="0" y="0" width="24" height="16" rx="4.5" />
+          <path d="M4.5 14 L4.5 22 L12 15 Z" />
         </g>
       );
     case "bang":
       return (
-        <g transform={`translate(${x - 9} ${y - 13})`} {...common}>
-          <rect x="0" y="0" width="6" height="17" rx="3" />
-          <rect x="0" y="20" width="6" height="6" rx="3" />
-          <rect x="12" y="0" width="6" height="17" rx="3" />
-          <rect x="12" y="20" width="6" height="6" rx="3" />
+        <g transform={`translate(${x - 8} ${y - 12})`} {...p}>
+          <rect x="0" y="0" width="5.4" height="15" rx="2.7" />
+          <rect x="0" y="18" width="5.4" height="5.4" rx="2.7" />
+          <rect x="10.6" y="0" width="5.4" height="15" rx="2.7" />
+          <rect x="10.6" y="18" width="5.4" height="5.4" rx="2.7" />
         </g>
       );
     case "query":
       return (
-        <g transform={`translate(${x - 9} ${y - 13})`} {...common}>
-          <path d="M1 6 a7 7 0 0 1 13 3 c0 4 -4 5 -4 8 h-5 c0 -5 4 -6 4 -8 a2.5 2.5 0 0 0 -4.5 -1.5 z" />
-          <rect x="4.5" y="20" width="5.5" height="5.5" rx="2.75" />
+        <g transform={`translate(${x - 8} ${y - 12})`} {...p}>
+          <path d="M0.5 5.5 a6.5 6.5 0 0 1 12 2.8 c0 3.7 -3.7 4.6 -3.7 7.4 h-4.6 c0 -4.6 3.7 -5.5 3.7 -7.4 a2.3 2.3 0 0 0 -4.2 -1.4 z" />
+          <rect x="4" y="18.5" width="5" height="5" rx="2.5" />
         </g>
       );
     case "scales":
       return (
-        <g transform={`translate(${x - 14} ${y - 13})`} {...common}>
-          <rect x="12.5" y="2" width="3" height="22" rx="1.5" />
-          <rect x="4" y="24" width="20" height="3" rx="1.5" />
-          <rect x="2" y="6" width="24" height="2.6" rx="1.3" />
-          <path d="M2 8 L7.5 17 h-11 z" />
-          <path d="M26 8 L31.5 17 h-11 z" />
+        <g transform={`translate(${x - 13} ${y - 12})`} {...p}>
+          <rect x="11.6" y="2" width="2.8" height="20" rx="1.4" />
+          <rect x="3.5" y="22" width="19" height="2.8" rx="1.4" />
+          <rect x="1.5" y="5.5" width="23" height="2.4" rx="1.2" />
+          <path d="M1.5 7.5 L6.6 15.6 h-10.2 z" />
+          <path d="M24.5 7.5 L29.6 15.6 h-10.2 z" />
         </g>
       );
     case "crown":
       return (
-        <g transform={`translate(${x - 13} ${y - 10})`} {...common}>
-          <path d="M0 4 L6 12 L13 1 L20 12 L26 4 L23 20 h-20 z" />
+        <g transform={`translate(${x - 12} ${y - 9})`} {...p}>
+          <path d="M0 3.5 L5.5 11 L12 1 L18.5 11 L24 3.5 L21.5 18 h-19 z" />
         </g>
       );
   }
 }
 
-/** One isometric diamond with its extruded side, drawn as a flat rhombus. */
+/** An isometric slab: lit top face plus an extruded side. */
 function Diamond({ tile }: { tile: Tile }) {
-  const { cx, cy, fill } = tile;
+  const { cx, cy } = tile;
   const hw = TILE_W / 2;
   const hh = TILE_H / 2;
-  const depth = 12;
+  const depth = 11;
   const top = `${cx},${cy - hh} ${cx + hw},${cy} ${cx},${cy + hh} ${cx - hw},${cy}`;
   return (
-    <g opacity={tile.dim ? 0.72 : 1}>
-      {/* extruded side, so the tile reads as a solid slab */}
+    <g>
       <path
         d={`M${cx - hw} ${cy} L${cx} ${cy + hh} L${cx + hw} ${cy} L${cx + hw} ${cy + depth} L${cx} ${cy + hh + depth} L${cx - hw} ${cy + depth} Z`}
-        fill={fill}
-        opacity="0.55"
+        fill={tile.fill}
       />
-      <polygon points={top} fill={fill} />
+      <polygon points={top} fill={tile.top} />
       <Icon kind={tile.icon} x={cx} y={cy} />
     </g>
   );
 }
 
 export default function PuzzleIllustration() {
+  const lit = LADDER[LADDER.length - 1];
   return (
-    <div className="relative mx-auto w-full max-w-[19rem]" aria-hidden>
-      <svg viewBox="52 52 400 336" className="h-auto w-full" role="presentation">
+    <div className="rounded-3xl bg-board p-4 text-ink shadow-2xl ring-1 ring-black/10 sm:p-5">
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-[11px] font-black uppercase tracking-widest text-ink-muted">
+          Today&apos;s puzzles
+        </p>
+        <span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-black shadow-sm">
+          🔥 12-day streak
+        </span>
+      </div>
+
+      <svg viewBox="40 62 316 226" className="h-auto w-full" role="presentation" aria-hidden>
         <defs>
           <radialGradient id="puzzle-halo" cx="50%" cy="50%" r="50%">
-            <stop offset="0" stopColor="#7ee2b0" stopOpacity="0.34" />
-            <stop offset="0.55" stopColor="#7ee2b0" stopOpacity="0.12" />
-            <stop offset="1" stopColor="#7ee2b0" stopOpacity="0" />
+            <stop offset="0" stopColor="#81b64c" stopOpacity="0.3" />
+            <stop offset="0.55" stopColor="#81b64c" stopOpacity="0.1" />
+            <stop offset="1" stopColor="#81b64c" stopOpacity="0" />
           </radialGradient>
         </defs>
-        <circle cx="326" cy="180" r="118" fill="url(#puzzle-halo)" />
+        <circle cx={lit.cx} cy={lit.cy} r="88" fill="url(#puzzle-halo)" />
 
         {/* Rungs connecting the climb, drawn under the tiles. */}
-        <g stroke="#ffffff" strokeOpacity="0.18" strokeWidth="2" strokeDasharray="4 6">
-          <path d="M118 296 L170 267" fill="none" />
-          <path d="M170 267 L222 238" fill="none" />
-          <path d="M222 238 L274 209" fill="none" />
-          <path d="M274 209 L326 180" fill="none" />
+        <g stroke="#2b2a27" strokeOpacity="0.16" strokeWidth="2" strokeDasharray="4 6">
+          {LADDER.slice(0, -1).map((tile, i) => (
+            <path
+              key={tile.label}
+              d={`M${tile.cx} ${tile.cy} L${LADDER[i + 1].cx} ${LADDER[i + 1].cy}`}
+              fill="none"
+            />
+          ))}
         </g>
 
-        {TILES.map((tile) => (
-          <Diamond key={`${tile.cx}-${tile.cy}`} tile={tile} />
+        <Diamond tile={OFFSHOOT} />
+        {LADDER.map((tile) => (
+          <Diamond key={tile.label} tile={tile} />
         ))}
 
-        {/* Streak counter riding along with the climb. */}
-        <g transform="translate(62 96)">
-          <rect x="0" y="0" width="118" height="46" rx="14" fill="#f4f3ee" />
-          <text x="16" y="20" fontSize="10" fontWeight="800" fill="#6b6963">
-            DAY STREAK
-          </text>
-          <text x="16" y="38" fontSize="17" fontWeight="900" fill="#2b2a27">
-            🔥 12 days
+        {/* Only the rung you're on is named, so the art stays uncluttered. */}
+        <g transform={`translate(${lit.cx} ${lit.cy - 50})`}>
+          <rect x="-44" y="-13" width="88" height="26" rx="13" fill="#ffffff" />
+          <text
+            x="0"
+            y="1"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fontSize="12.5"
+            fontWeight="900"
+            fill="#2b2a27"
+          >
+            Speak now
           </text>
         </g>
       </svg>
+
+      <div className="flex items-center justify-between gap-2">
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="h-2 w-8 rounded-full bg-[#81b64c]" />
+          <span className="h-2 w-8 rounded-full bg-[#81b64c]" />
+          <span className="h-2 w-8 rounded-full bg-[#dedcd3]" />
+        </span>
+        <p className="text-[11px] font-bold text-ink-muted">2 of 3 done today</p>
+      </div>
     </div>
   );
 }
