@@ -6,94 +6,79 @@
  * progression you climb — rather than showing one puzzle, which people read as
  * "that is what every puzzle looks like".
  *
- * It sits on the same light board panel as every other section visual, so it
- * belongs to the page rather than floating on the background.
+ * Deliberately free of buttons, chips and progress bars: it is a picture, and
+ * nothing in it should invite a click it cannot answer.
  */
 
-const TILE_W = 92;
-const TILE_H = 52;
+const TILE_W = 76;
+const TILE_H = 42;
+const DEPTH = 9;
 
 interface Tile {
   cx: number;
   cy: number;
   /** Extruded side. */
-  fill: string;
+  side: string;
   /** Top face. */
   top: string;
-  icon: "mic" | "bubble" | "bang" | "query" | "scales" | "crown";
+  icon: "mic" | "bubble" | "bang" | "query" | "scales";
   label: string;
 }
 
-// One step up-right is (+50, -28): a half-tile in each axis plus a small gap,
-// so the diamonds line up edge to edge instead of overlapping. The greens
-// ascend with the climb, so difficulty reads even in greyscale.
+// One step up-right is (+54, -30) against a half-tile of (38, 21), which
+// leaves a clear gap on every side — the tiles read as separate slabs rather
+// than one interpenetrating mass.
 const LADDER: Tile[] = [
-  { cx: 96, cy: 236, fill: "#a9bd97", top: "#c6d6b6", icon: "bubble", label: "Framing" },
-  { cx: 146, cy: 208, fill: "#9ab884", top: "#b8d2a1", icon: "query", label: "Clash" },
-  { cx: 196, cy: 180, fill: "#8bb46f", top: "#a9cd8a", icon: "scales", label: "Weighing" },
-  { cx: 246, cy: 152, fill: "#7cae59", top: "#9bc973", icon: "bang", label: "Rebuttal" },
-  { cx: 296, cy: 124, fill: "#5f9a37", top: "#8ede63", icon: "mic", label: "Today" },
+  { cx: 86, cy: 250, side: "#a7bb95", top: "#c8d8b8", icon: "bubble", label: "Framing" },
+  { cx: 140, cy: 220, side: "#98b681", top: "#bad4a3", icon: "query", label: "Clash" },
+  { cx: 194, cy: 190, side: "#89b26c", top: "#abcf8c", icon: "scales", label: "Weighing" },
+  { cx: 248, cy: 160, side: "#79ac56", top: "#9dcb75", icon: "bang", label: "Rebuttal" },
+  { cx: 302, cy: 130, side: "#5c9834", top: "#90e065", icon: "mic", label: "Speaking" },
 ];
-
-/** One tile off the line, so the composition isn't a perfect diagonal. */
-const OFFSHOOT: Tile = {
-  cx: 146,
-  cy: 264,
-  fill: "#b4c5a3",
-  top: "#cddcbe",
-  icon: "crown",
-  label: "Mastery",
-};
 
 function Icon({ kind, x, y }: { kind: Tile["icon"]; x: number; y: number }) {
   const p = { fill: "#ffffff", opacity: 0.95 };
   switch (kind) {
     case "mic":
       return (
-        <g transform={`translate(${x - 10} ${y - 14})`} {...p}>
-          <rect x="6" y="0" width="9" height="15" rx="4.5" />
-          <path d="M1.5 11 a9 9 0 0 0 18 0 h-2.8 a6.2 6.2 0 0 1 -12.4 0 z" />
-          <rect x="9" y="20" width="3" height="6" rx="1.5" />
-          <rect x="4" y="25" width="13" height="2.8" rx="1.4" />
+        <g transform={`translate(${x - 8.5} ${y - 12})`} {...p}>
+          <rect x="5" y="0" width="7.5" height="12.5" rx="3.75" />
+          <path d="M1.2 9.2 a7.5 7.5 0 0 0 15 0 h-2.3 a5.2 5.2 0 0 1 -10.4 0 z" />
+          <rect x="7.4" y="16.8" width="2.6" height="5" rx="1.3" />
+          <rect x="3.4" y="21" width="10.6" height="2.4" rx="1.2" />
         </g>
       );
     case "bubble":
       return (
-        <g transform={`translate(${x - 12} ${y - 10})`} {...p}>
-          <rect x="0" y="0" width="24" height="16" rx="4.5" />
-          <path d="M4.5 14 L4.5 22 L12 15 Z" />
+        <g transform={`translate(${x - 10} ${y - 8.5})`} {...p}>
+          <rect x="0" y="0" width="20" height="13.5" rx="4" />
+          <path d="M3.8 11.8 L3.8 18.5 L10 12.6 Z" />
         </g>
       );
     case "bang":
       return (
-        <g transform={`translate(${x - 8} ${y - 12})`} {...p}>
-          <rect x="0" y="0" width="5.4" height="15" rx="2.7" />
-          <rect x="0" y="18" width="5.4" height="5.4" rx="2.7" />
-          <rect x="10.6" y="0" width="5.4" height="15" rx="2.7" />
-          <rect x="10.6" y="18" width="5.4" height="5.4" rx="2.7" />
+        <g transform={`translate(${x - 6.6} ${y - 10})`} {...p}>
+          <rect x="0" y="0" width="4.5" height="12.5" rx="2.25" />
+          <rect x="0" y="15" width="4.5" height="4.5" rx="2.25" />
+          <rect x="8.8" y="0" width="4.5" height="12.5" rx="2.25" />
+          <rect x="8.8" y="15" width="4.5" height="4.5" rx="2.25" />
         </g>
       );
     case "query":
       return (
-        <g transform={`translate(${x - 8} ${y - 12})`} {...p}>
-          <path d="M0.5 5.5 a6.5 6.5 0 0 1 12 2.8 c0 3.7 -3.7 4.6 -3.7 7.4 h-4.6 c0 -4.6 3.7 -5.5 3.7 -7.4 a2.3 2.3 0 0 0 -4.2 -1.4 z" />
-          <rect x="4" y="18.5" width="5" height="5" rx="2.5" />
+        <g transform={`translate(${x - 6.5} ${y - 10})`} {...p}>
+          <path d="M0.4 4.6 a5.4 5.4 0 0 1 10 2.3 c0 3.1 -3.1 3.8 -3.1 6.2 h-3.8 c0 -3.8 3.1 -4.6 3.1 -6.2 a1.9 1.9 0 0 0 -3.5 -1.2 z" />
+          <rect x="3.3" y="15.4" width="4.2" height="4.2" rx="2.1" />
         </g>
       );
     case "scales":
       return (
-        <g transform={`translate(${x - 13} ${y - 12})`} {...p}>
-          <rect x="11.6" y="2" width="2.8" height="20" rx="1.4" />
-          <rect x="3.5" y="22" width="19" height="2.8" rx="1.4" />
-          <rect x="1.5" y="5.5" width="23" height="2.4" rx="1.2" />
-          <path d="M1.5 7.5 L6.6 15.6 h-10.2 z" />
-          <path d="M24.5 7.5 L29.6 15.6 h-10.2 z" />
-        </g>
-      );
-    case "crown":
-      return (
-        <g transform={`translate(${x - 12} ${y - 9})`} {...p}>
-          <path d="M0 3.5 L5.5 11 L12 1 L18.5 11 L24 3.5 L21.5 18 h-19 z" />
+        <g transform={`translate(${x - 10.8} ${y - 10})`} {...p}>
+          <rect x="9.7" y="1.7" width="2.3" height="16.6" rx="1.15" />
+          <rect x="2.9" y="18.3" width="15.8" height="2.3" rx="1.15" />
+          <rect x="1.2" y="4.6" width="19.2" height="2" rx="1" />
+          <path d="M1.2 6.2 L5.5 13 h-8.6 z" />
+          <path d="M20.4 6.2 L24.7 13 h-8.6 z" />
         </g>
       );
   }
@@ -104,13 +89,12 @@ function Diamond({ tile }: { tile: Tile }) {
   const { cx, cy } = tile;
   const hw = TILE_W / 2;
   const hh = TILE_H / 2;
-  const depth = 11;
   const top = `${cx},${cy - hh} ${cx + hw},${cy} ${cx},${cy + hh} ${cx - hw},${cy}`;
   return (
     <g>
       <path
-        d={`M${cx - hw} ${cy} L${cx} ${cy + hh} L${cx + hw} ${cy} L${cx + hw} ${cy + depth} L${cx} ${cy + hh + depth} L${cx - hw} ${cy + depth} Z`}
-        fill={tile.fill}
+        d={`M${cx - hw} ${cy} L${cx} ${cy + hh} L${cx + hw} ${cy} L${cx + hw} ${cy + DEPTH} L${cx} ${cy + hh + DEPTH} L${cx - hw} ${cy + DEPTH} Z`}
+        fill={tile.side}
       />
       <polygon points={top} fill={tile.top} />
       <Icon kind={tile.icon} x={cx} y={cy} />
@@ -122,27 +106,27 @@ export default function PuzzleIllustration() {
   const lit = LADDER[LADDER.length - 1];
   return (
     <div className="rounded-3xl bg-board p-4 text-ink shadow-2xl ring-1 ring-black/10 sm:p-5">
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-baseline justify-between gap-3">
         <p className="text-[11px] font-black uppercase tracking-widest text-ink-muted">
-          Today&apos;s puzzles
+          Daily puzzles
         </p>
-        <span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-black shadow-sm">
-          🔥 12-day streak
-        </span>
+        <p className="text-[11px] font-semibold text-ink-muted">Three a day</p>
       </div>
 
-      <svg viewBox="40 62 316 226" className="h-auto w-full" role="presentation" aria-hidden>
+      <svg viewBox="28 58 348 214" className="h-auto w-full" role="presentation" aria-hidden>
         <defs>
           <radialGradient id="puzzle-halo" cx="50%" cy="50%" r="50%">
-            <stop offset="0" stopColor="#81b64c" stopOpacity="0.3" />
+            <stop offset="0" stopColor="#81b64c" stopOpacity="0.32" />
             <stop offset="0.55" stopColor="#81b64c" stopOpacity="0.1" />
             <stop offset="1" stopColor="#81b64c" stopOpacity="0" />
           </radialGradient>
         </defs>
-        <circle cx={lit.cx} cy={lit.cy} r="88" fill="url(#puzzle-halo)" />
+        {/* Radius kept inside the frame on every side — a clipped radial reads
+            as a soft square, which is worse than no glow at all. */}
+        <circle cx={lit.cx} cy={lit.cy + 4} r="52" fill="url(#puzzle-halo)" />
 
         {/* Rungs connecting the climb, drawn under the tiles. */}
-        <g stroke="#2b2a27" strokeOpacity="0.16" strokeWidth="2" strokeDasharray="4 6">
+        <g stroke="#2b2a27" strokeOpacity="0.14" strokeWidth="2" strokeDasharray="3 6">
           {LADDER.slice(0, -1).map((tile, i) => (
             <path
               key={tile.label}
@@ -152,36 +136,11 @@ export default function PuzzleIllustration() {
           ))}
         </g>
 
-        <Diamond tile={OFFSHOOT} />
         {LADDER.map((tile) => (
           <Diamond key={tile.label} tile={tile} />
         ))}
 
-        {/* Only the rung you're on is named, so the art stays uncluttered. */}
-        <g transform={`translate(${lit.cx} ${lit.cy - 50})`}>
-          <rect x="-44" y="-13" width="88" height="26" rx="13" fill="#ffffff" />
-          <text
-            x="0"
-            y="1"
-            textAnchor="middle"
-            dominantBaseline="central"
-            fontSize="12.5"
-            fontWeight="900"
-            fill="#2b2a27"
-          >
-            Speak now
-          </text>
-        </g>
       </svg>
-
-      <div className="flex items-center justify-between gap-2">
-        <span className="flex gap-1.5" aria-hidden>
-          <span className="h-2 w-8 rounded-full bg-[#81b64c]" />
-          <span className="h-2 w-8 rounded-full bg-[#81b64c]" />
-          <span className="h-2 w-8 rounded-full bg-[#dedcd3]" />
-        </span>
-        <p className="text-[11px] font-bold text-ink-muted">2 of 3 done today</p>
-      </div>
     </div>
   );
 }

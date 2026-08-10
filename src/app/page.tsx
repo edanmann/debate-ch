@@ -81,8 +81,8 @@ export default function LandingPage() {
               <span className="text-brand">Improve every round.</span>
             </h1>
             <p className="mt-4 max-w-lg text-base text-fg-muted sm:mt-5 sm:text-lg">
-              Debate people or distinctive debate bots, receive clear analysis
-              and sharpen the skills that make arguments matter.
+              Debate people or Bots to receive clear analysis and sharpen the
+              skills that make arguments matter.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               <ButtonLink href="/signup" size="xl" className="w-full sm:w-auto">
@@ -112,7 +112,8 @@ export default function LandingPage() {
         id="analyse"
         eyebrow="Your own rounds"
         title="Analyse your debates"
-        sub="Receive instant Debate Reviews to improve your communication skills — every line graded, an evaluation bar that moves with the round, and a coach who walks you through exactly where it turned."
+        flip
+        sub="Receive instant debate reviews to improve your communication skills, by having every line graded and a coach who walks you through everything."
         cta="Analyse a debate"
         ctaHref="/analyse"
       >
@@ -152,7 +153,7 @@ export default function LandingPage() {
         id="lessons"
         eyebrow="Coming soon"
         title="Interactive debate lessons"
-        sub="Fully interactive lessons for argumentation, rebuttal, evidence, strategy, delivery and persuasion are in the workshop. Until they're genuinely interactive, they stay off the menu — train with puzzles meanwhile."
+        sub="Fully interactive lessons for argumentation, rebuttal, evidence, strategy, delivery and persuasion are in the workshop. Until they're genuinely interactive, they stay off the menu. Train with puzzles meanwhile."
         cta="Solve a Puzzle instead"
         ctaHref="/puzzles"
         flip
@@ -193,7 +194,7 @@ export default function LandingPage() {
         id="puzzles"
         eyebrow="Daily training"
         title="Level up with debate puzzles"
-        sub="Short spoken challenges that train rebuttal, framing, evidence and strategic judgement — three a day, and a streak worth keeping."
+        sub="Short spoken challenges that train rebuttal, framing, evidence and strategic judgement. Three a day, in under five minutes."
         cta="Try a puzzle"
         ctaHref="/puzzles"
       >
