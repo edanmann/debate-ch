@@ -24,10 +24,57 @@ export interface VoiceProfile {
   /** Multiplies the gap between sentences: >1 is a slower, weightier delivery. */
   pauseScale?: number;
   /**
-   * Provider preset used when neural TTS is configured. These are stock
-   * provider voices picked to suit the character — never voice clones.
+   * OpenAI TTS voice preset, used when OPENAI_API_KEY is configured. A stock
+   * provider voice picked to suit the character — never a voice clone.
    */
   neuralVoice?: string;
+  /**
+   * ElevenLabs voice id, used when ELEVENLABS_API_KEY is configured instead.
+   * A different provider needs a different identifier — sending an OpenAI
+   * name like "onyx" to ElevenLabs fails outright, so these are separate
+   * fields rather than one shared string. Falls back to a deterministic
+   * pick from ElevenLabs' stock premade voices when unset (see
+   * {@link presentationFor}), so every bot resolves to *something* valid.
+   */
+  elevenVoice?: string;
+}
+
+/**
+ * ElevenLabs' stock "premade" voices — present on every account, so these
+ * ids work without the user having to browse a voice library first. Split by
+ * gender; {@link elevenVoiceFor} picks deterministically within the matching
+ * pool so a bot always gets the same voice, without every character needing
+ * a hand-picked id.
+ */
+const ELEVEN_PREMADE: Record<"m" | "f", string[]> = {
+  m: [
+    "pNInz6obpgDQGcFmaJgB", // Adam — deep, American
+    "ErXwobaYiN019PkySvjV", // Antoni — well-rounded, American
+    "VR6AewLTigWG4xSOukaG", // Arnold — crisp, American
+    "TxGEqnHWrfWFTfGW9XjX", // Josh — younger, American
+    "yoZ06aMxZJJ28mfd3POQ", // Sam — raspy, American
+  ],
+  f: [
+    "21m00Tcm4TlvDq8ikWAM", // Rachel — calm, American
+    "AZnzlk1XvdvUeBnXmlld", // Domi — strong, American
+    "EXAVITQu4vr4xnSDxMaL", // Bella — soft, American
+    "MF3mGyEYCl7XYWbV9V6O", // Elli — younger, American
+  ],
+};
+
+function hashSlug(slug: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < slug.length; i++) {
+    h ^= slug.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+/** Deterministic ElevenLabs voice for a bot that hasn't got an explicit one. */
+function elevenVoiceFor(slug: string, gender: "m" | "f" | "n"): string {
+  const pool = ELEVEN_PREMADE[gender === "f" ? "f" : "m"];
+  return pool[hashSlug(slug) % pool.length];
 }
 
 export interface BotPresentation {
@@ -807,10 +854,10 @@ export const BOT_PRESENTATION: Record<string, BotPresentation> = {
 };
 
 export function presentationFor(slug: string): BotPresentation {
-  return (
-    BOT_PRESENTATION[slug] ?? {
-      voice: { pitch: 1, rate: 1, gender: "n" },
-      avatar: { robot: true } as AvatarConfig,
-    }
-  );
+  const p = BOT_PRESENTATION[slug] ?? {
+    voice: { pitch: 1, rate: 1, gender: "n" as const },
+    avatar: { robot: true } as AvatarConfig,
+  };
+  if (p.voice.elevenVoice) return p;
+  return { ...p, voice: { ...p.voice, elevenVoice: elevenVoiceFor(slug, p.voice.gender) } };
 }

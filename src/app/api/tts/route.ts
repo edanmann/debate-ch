@@ -16,7 +16,10 @@ import { z } from "zod";
 
 const body = z.object({
   text: z.string().min(1).max(4000),
+  /** OpenAI voice preset name (e.g. "onyx"). */
   voice: z.string().min(1).max(64),
+  /** ElevenLabs voice id — a different identifier space, so a separate field. */
+  elevenVoice: z.string().min(1).max(64).optional(),
   speed: z.number().min(0.5).max(1.5).optional(),
 });
 
@@ -51,7 +54,7 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
-  const { text, voice, speed } = parsed.data;
+  const { text, voice, elevenVoice, speed } = parsed.data;
 
   try {
     if (OPENAI_KEY) {
@@ -79,8 +82,13 @@ export async function POST(request: Request) {
       });
     }
 
+    // ElevenLabs ids and OpenAI preset names are different identifier
+    // spaces — sending "onyx" here would 400 on every request, so this
+    // never falls back to the OpenAI-shaped `voice` field.
     const res = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voice)}`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(
+        elevenVoice ?? "21m00Tcm4TlvDq8ikWAM"
+      )}`,
       {
         method: "POST",
         headers: {

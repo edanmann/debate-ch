@@ -198,6 +198,10 @@ async function speakNeural(
       body: JSON.stringify({
         text,
         voice: profile.neuralVoice ?? (profile.gender === "f" ? "nova" : "onyx"),
+        // Sent alongside `voice` — the route picks whichever identifier
+        // matches its configured provider, since OpenAI names and
+        // ElevenLabs ids aren't interchangeable.
+        elevenVoice: profile.elevenVoice,
         // Character pace carries over to the neural voice.
         speed: Math.max(0.5, Math.min(1.5, profile.rate)),
       }),
