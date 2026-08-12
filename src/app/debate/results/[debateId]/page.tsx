@@ -132,9 +132,11 @@ export default function ResultsPage() {
       </Card>
 
       <DebateReview
+        debate={debate}
         botSlug={debate.botSlug}
         botName={debate.botName}
         coachSlug={user?.coachSlug}
+        userDisplayName={user?.displayName ?? "You"}
         judgement={j}
       />
 
@@ -254,29 +256,6 @@ export default function ResultsPage() {
           </div>
         </Card>
 
-        {/* Transcript */}
-        <Card className="p-5 lg:col-span-2">
-          <details>
-            <summary className="cursor-pointer text-lg font-bold">
-              Debate timeline &amp; transcript
-            </summary>
-            <div className="mt-4 space-y-2">
-              {debate.transcript.map((t, i) => (
-                <div key={i} className="rounded-xl bg-surface-2 p-3 text-sm">
-                  <p className="flex items-center justify-between text-xs font-semibold text-fg-muted">
-                    <span>
-                      {t.phaseName} · {t.speaker === "user" ? user?.displayName ?? "You" : debate.botName} ({t.side})
-                    </span>
-                    <span className="numeric">
-                      {new Date(t.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                    </span>
-                  </p>
-                  <p className="mt-1 whitespace-pre-wrap">{t.text}</p>
-                </div>
-              ))}
-            </div>
-          </details>
-        </Card>
       </div>
 
       <p className="mt-6 rounded-2xl border border-border-subtle bg-surface-1 p-4 text-xs text-fg-faint">

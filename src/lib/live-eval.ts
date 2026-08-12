@@ -1,4 +1,4 @@
-import { extractFeatures, scoreUser } from "./judge";
+import { gradeSpeech, VERDICT_WEIGHT } from "./debate-guidelines";
 import type { SpeechVerdict } from "@/components/move-badge";
 import type { TranscriptEntry } from "./types";
 
@@ -6,9 +6,10 @@ import type { TranscriptEntry } from "./types";
  * Live debate evaluation — the debating equivalent of a chess engine bar.
  *
  * Chess evaluates a position; a debate has no board, so we evaluate the
- * *record*: every speech so far is scored on the same observable features the
- * final judge uses (mechanisms, rebuttal engagement, evidence, weighing,
- * structure), and the bar shows who is ahead on that running total.
+ * *record*: every speech so far is graded against the shared debate
+ * guidelines (./debate-guidelines), and the bar shows who is ahead on the
+ * running total. The post-debate line-by-line review uses the same grading
+ * function, so the live bar and the review never disagree about a speech.
  */
 
 export interface SpeechEval {
@@ -31,58 +32,6 @@ export interface LiveEval {
   /** Short human summary of the current state. */
   summary: string;
 }
-
-/** Grade one speech against the features that decide rounds. */
-function gradeSpeech(text: string, opponentText: string): {
-  score: number;
-  verdict: SpeechVerdict;
-  reason: string;
-} {
-  const f = extractFeatures(text, opponentText, 1);
-  const s = scoreUser(f);
-  const score = Math.round(
-    (s.argumentation + s.rebuttal + s.evidence + s.strategy + s.persuasion) / 5
-  );
-
-  // Verdict thresholds mirror the badge vocabulary used elsewhere.
-  let verdict: SpeechVerdict;
-  let reason: string;
-  if (f.words < 12) {
-    verdict = "blunder";
-    reason = "Barely any content — the judge can't score silence.";
-  } else if (f.mechanisms === 0 && f.evidence === 0) {
-    verdict = "blunder";
-    reason = "Assertion with no mechanism and no evidence.";
-  } else if (score >= 62 && f.weighing > 0 && f.rebuttalMarkers > 0) {
-    verdict = "brilliant";
-    reason = "Answered them directly and explained why it outweighs.";
-  } else if (score >= 52) {
-    verdict = "great";
-    reason =
-      f.rebuttalMarkers > 0
-        ? "Engaged the opponent's actual case."
-        : "Clear claim with a real mechanism behind it.";
-  } else if (score >= 40) {
-    verdict = "inaccuracy";
-    reason =
-      f.weighing === 0
-        ? "Solid points, but nothing weighed against their side."
-        : "Reasonable, though the mechanism stayed thin.";
-  } else {
-    verdict = "blunder";
-    reason = "Off-clash or unsupported — this hands ground away.";
-  }
-  return { score, verdict, reason };
-}
-
-const VERDICT_WEIGHT: Record<SpeechVerdict, number> = {
-  brilliant: 2.0,
-  great: 1.0,
-  good: 0.4,
-  inaccuracy: -0.6,
-  mistake: -1.1,
-  blunder: -1.6,
-};
 
 export function evaluateLive(transcript: TranscriptEntry[]): LiveEval {
   const speeches: SpeechEval[] = [];
