@@ -77,6 +77,18 @@ export default function DebateRoomPage() {
   const [resigning, setResigning] = useState(false);
   const [motionPickerOpen, setMotionPickerOpen] = useState(false);
   const [cameraOn, setCameraOn] = useState(true);
+  const [remoteLoading, setRemoteLoading] = useState(false);
+  const remoteTried = useRef(false);
+
+  // Mid-round refresh: pull the debate from Supabase when it is missing locally.
+  useEffect(() => {
+    if (!hydrated || debate || remoteTried.current || !params.debateId) return;
+    remoteTried.current = true;
+    setRemoteLoading(true);
+    void import("@/lib/sync")
+      .then(({ fetchDebate }) => fetchDebate(params.debateId))
+      .finally(() => setRemoteLoading(false));
+  }, [hydrated, debate, params.debateId]);
 
   const botRequestedFor = useRef<string | null>(null);
   const finalizing = useRef(false);
@@ -90,7 +102,7 @@ export default function DebateRoomPage() {
 
   // ---- Stage derivation ----------------------------------------------------
   let stage: Stage;
-  if (!hydrated) stage = "loading";
+  if (!hydrated || remoteLoading) stage = "loading";
   else if (!debate || !format) stage = "not-found";
   else if (debate.status === "complete") stage = "redirect";
   else if (debate.status === "abandoned") stage = "abandoned";
@@ -403,7 +415,8 @@ export default function DebateRoomPage() {
       <div className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-4 text-center">
         <p className="text-xl font-bold">Debate not found</p>
         <p className="text-sm text-fg-muted">
-          This round doesn&apos;t exist on this device.
+          This round is not in your account. It may have been deleted, or you
+          may be signed into a different email.
         </p>
         <Link href="/home" className={buttonClass("primary", "lg")}>
           Back to dashboard

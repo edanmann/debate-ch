@@ -1,18 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { adoptProfile, logIn } from "@/lib/auth/client";
-import { getState, logBackIn, useAppState } from "@/lib/store";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
+import { hasDisplayName, logIn } from "@/lib/auth/client";
+import { useAppState } from "@/lib/store";
 import { buttonClass, Card } from "@/components/ui";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const params = useSearchParams();
   const { user } = useAppState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    params.get("error") === "auth"
+      ? "That sign-in link expired. Try logging in again."
+      : null
+  );
   const [busy, setBusy] = useState(false);
 
   async function submit(e: React.FormEvent) {
@@ -22,34 +27,13 @@ export default function LoginPage() {
     setError(null);
 
     const res = await logIn(entered, password);
-
-    if (res.configured) {
-      setBusy(false);
-      if (!res.ok) {
-        setError(res.message ?? "Email or password is incorrect.");
-        return;
-      }
-      // Restore everything the account had, then go straight in — no repeat
-      // of onboarding for a returning player.
-      adoptProfile(res.profile);
-      router.push(getState().user?.displayName ? "/home" : "/onboarding");
-      return;
-    }
-
-    // Demo mode: fall back to the device-local profile.
     setBusy(false);
-    const existing = getState().user;
-    if (existing && existing.email === entered) {
-      router.push("/home");
+
+    if (!res.ok) {
+      setError(res.message ?? "Email or password is incorrect.");
       return;
     }
-    if (logBackIn(entered)) {
-      router.push(getState().user?.displayName ? "/home" : "/onboarding");
-      return;
-    }
-    setError(
-      "No account found on this device. Sign up, or connect a database to log in from anywhere."
-    );
+    router.push(hasDisplayName() ? "/home" : "/onboarding");
   }
 
   return (
@@ -69,50 +53,75 @@ export default function LoginPage() {
         ) : (
           <form onSubmit={submit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="text-sm font-medium">Email</label>
+              <label htmlFor="email" className="text-sm font-medium">
+                Email
+              </label>
               <input
                 id="email"
                 type="email"
                 autoComplete="email"
                 required
                 value={email}
-                onChange={(e) => { setEmail(e.target.value); setError(null); }}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(null);
+                }}
                 className="mt-1.5 w-full rounded-xl border border-border-subtle bg-surface-2 px-3 py-2.5 text-sm outline-none focus:border-brand"
-                placeholder="you@example.com"
               />
             </div>
             <div>
-              <label htmlFor="password" className="text-sm font-medium">Password</label>
+              <label htmlFor="password" className="text-sm font-medium">
+                Password
+              </label>
               <input
                 id="password"
                 type="password"
                 autoComplete="current-password"
                 required
                 value={password}
-                onChange={(e) => { setPassword(e.target.value); setError(null); }}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError(null);
+                }}
                 className="mt-1.5 w-full rounded-xl border border-border-subtle bg-surface-2 px-3 py-2.5 text-sm outline-none focus:border-brand"
-                placeholder="Your password"
               />
             </div>
-            {error && <p className="text-xs text-danger">{error}</p>}
+            {error && <p className="text-sm text-blunder">{error}</p>}
             <button
               type="submit"
               disabled={busy}
               className={`${buttonClass("primary", "lg")} w-full`}
             >
-              {busy ? "Logging in…" : "Log in"}
+              {busy ? "Signing in…" : "Log in"}
             </button>
           </form>
         )}
+        <p className="mt-4 text-sm text-fg-muted">
+          <Link href="/forgot-password" className="text-brand underline">
+            Forgot password?
+          </Link>
+        </p>
+        <p className="mt-2 text-sm text-fg-muted">
+          New here?{" "}
+          <Link href="/signup" className="text-brand underline">
+            Create an account
+          </Link>
+        </p>
       </Card>
-      <div className="mt-4 flex justify-between text-sm text-fg-muted">
-        <Link href="/forgot-password" className="underline hover:text-fg">
-          Forgot password?
-        </Link>
-        <Link href="/signup" className="text-brand underline">
-          Create an account
-        </Link>
-      </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-md animate-pulse py-12">
+          <div className="h-8 w-1/2 rounded-lg bg-surface-2" />
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import AuthBootstrap from "@/components/auth-bootstrap";
 import Chrome from "@/components/chrome";
 import { ThemeSync } from "@/components/theme";
 import "./globals.css";
@@ -30,7 +31,9 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className="min-h-dvh bg-background text-fg antialiased">
         <ThemeSync />
-        <Chrome>{children}</Chrome>
+        <AuthBootstrap>
+          <Chrome>{children}</Chrome>
+        </AuthBootstrap>
       </body>
     </html>
   );

@@ -32,7 +32,7 @@ export default function ResultsPage() {
       <div className="mx-auto max-w-2xl px-4 py-16">
         <EmptyState
           title="No result here"
-          body="This debate has no judgement on this device — it may be unfinished, abandoned, or from another browser."
+          body="This debate has no judgement yet — it may be unfinished or abandoned."
           action={
             <Link href="/history" className={buttonClass("primary", "md")}>
               Open history
@@ -126,7 +126,7 @@ export default function ResultsPage() {
         </div>
         {reported && (
           <p className="mt-2 text-xs text-fg-faint">
-            Logged locally in demo mode; hosted builds route reports to moderators.
+            Reports go to the moderation queue when you are signed in.
           </p>
         )}
       </Card>
