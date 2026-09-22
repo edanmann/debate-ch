@@ -7,9 +7,9 @@ export default function PrivacyPage() {
     <div className="mx-auto max-w-2xl px-4 py-12">
       <h1 className="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
       <p className="mt-2 text-sm text-fg-faint">
-        Draft policy for the Debates.ch prototype. In the current demo build,
-        everything below is enforced in the strongest possible way: your data
-        never leaves your device.
+        Draft policy for Debates.ch. Account data, debates and ratings sync to
+        your Debates.ch account. Upload analysis still stays on your device
+        until that feature is hosted.
       </p>
       <div className="mt-6 space-y-5 text-sm leading-relaxed text-fg-muted">
         <section>
@@ -17,8 +17,9 @@ export default function PrivacyPage() {
           <p>
             Account details you provide (email, display name, country), your
             debate transcripts and notes, lesson and puzzle progress, and — only
-            when you upload one — debate recordings. In demo mode all of this is
-            stored in your browser&apos;s local storage only.
+            when you upload one — debate recordings. Signed-in progress is stored
+            in your account. Upload analysis in this build still keeps the file
+            on your device.
           </p>
         </section>
         <section>

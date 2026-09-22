@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { flagFor } from "@/lib/flags-emoji";
 import { updateState, useAppState } from "@/lib/store";
+import { pushProfile } from "@/lib/sync";
 import type { AvatarConfig } from "@/components/cartoon-avatar";
 import { AvatarBuilder, DEFAULT_USER_AVATAR } from "@/components/avatar-builder";
 import { CartoonAvatar } from "@/components/cartoon-avatar";
@@ -30,7 +31,7 @@ function OnboardingWizard() {
   const [country, setCountry] = useState("");
   const [avatar, setAvatar] = useState<AvatarConfig>(DEFAULT_USER_AVATAR);
 
-  function finish(customAvatar: AvatarConfig | null) {
+  async function finish(customAvatar: AvatarConfig | null) {
     updateState((s) => ({
       ...s,
       user: s.user && {
@@ -40,6 +41,7 @@ function OnboardingWizard() {
         avatar: customAvatar ?? DEFAULT_USER_AVATAR,
       },
     }));
+    await pushProfile();
     router.push("/home");
   }
 

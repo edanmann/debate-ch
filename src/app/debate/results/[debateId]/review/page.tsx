@@ -30,7 +30,7 @@ export default function DebateReviewPage() {
       <div className="mx-auto max-w-2xl px-4 py-16">
         <EmptyState
           title="No result here"
-          body="This debate has no judgement on this device — it may be unfinished, abandoned, or from another browser."
+          body="This debate has no judgement yet — it may be unfinished or abandoned."
           action={
             <Link href="/history" className={buttonClass("primary", "md")}>
               Open history

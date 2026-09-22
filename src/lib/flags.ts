@@ -11,6 +11,8 @@ function env(name: string, fallback: boolean): boolean {
 }
 
 export const FLAGS = {
+  /** Private friend lobbies over the network (invite link). */
+  friendLobbies: env("FRIEND_LOBBIES", true),
   /** Instant public matchmaking — waitlist only for now. */
   publicMatchmaking: env("PUBLIC_MATCHMAKING", false),
   /** Live audio/video in the debate room. Text mode is the MVP. */

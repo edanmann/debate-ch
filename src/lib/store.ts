@@ -184,6 +184,16 @@ export function saveDebate(debate: DebateRecord) {
       ].slice(0, 8),
     };
   });
+  // Hosted persistence — fire-and-forget so the room stays snappy.
+  if (typeof window !== "undefined") {
+    void import("@/lib/sync")
+      .then(({ pushDebate, pushPlayerState }) =>
+        Promise.all([pushDebate(debate), pushPlayerState()])
+      )
+      .catch(() => {
+        // Offline or unsigned — local cache is enough until the next sync.
+      });
+  }
 }
 
 export function getDebate(id: string): DebateRecord | null {
@@ -201,6 +211,11 @@ export function applyRatingChange(
     overallElo: nextOverall,
     ratingHistory: [change, ...s.ratingHistory].slice(0, 200),
   }));
+  if (typeof window !== "undefined") {
+    void import("@/lib/sync")
+      .then(({ pushPlayerState }) => pushPlayerState())
+      .catch(() => {});
+  }
 }
 
 export function logOut() {

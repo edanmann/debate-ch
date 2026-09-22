@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getBotBySlug } from "@/lib/bots";
 import { getMotionById } from "@/lib/motions";
-import { getBotProvider } from "@/lib/providers";
+import {
+  activeAiProviderId,
+  getBotProvider,
+  getModerationProvider,
+} from "@/lib/providers";
 import type { TranscriptEntry } from "@/lib/types";
 
 const bodySchema = z.object({
@@ -38,15 +42,45 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unknown bot or motion" }, { status: 404 });
   }
 
-  const text = await getBotProvider().generateTurn({
-    bot,
-    motion,
-    botSide,
-    phaseId,
-    difficulty,
-    debateId,
-    transcript: transcript as TranscriptEntry[],
-  });
+  const lastUser = [...transcript].reverse().find((t) => t.speaker === "user");
+  if (lastUser?.text) {
+    const mod = await getModerationProvider().check(lastUser.text);
+    if (!mod.allowed) {
+      return NextResponse.json(
+        { error: "moderation", message: mod.reason },
+        { status: 422 }
+      );
+    }
+  }
 
-  return NextResponse.json({ text, provider: "mock" });
+  try {
+    const text = await getBotProvider().generateTurn({
+      bot,
+      motion,
+      botSide,
+      phaseId,
+      difficulty,
+      debateId,
+      transcript: transcript as TranscriptEntry[],
+    });
+
+    const botMod = await getModerationProvider().check(text);
+    if (!botMod.allowed) {
+      return NextResponse.json(
+        {
+          error: "moderation",
+          message: "The bot reply was blocked. Try advancing the phase again.",
+        },
+        { status: 422 }
+      );
+    }
+
+    return NextResponse.json({ text, provider: activeAiProviderId() });
+  } catch (err) {
+    console.error("bot respond failed", err);
+    return NextResponse.json(
+      { error: "bot-unavailable", message: "The opponent could not reply." },
+      { status: 503 }
+    );
+  }
 }

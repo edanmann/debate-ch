@@ -199,7 +199,7 @@ function Setup({ bot }: { bot: BotCardData }) {
               <dt className="text-fg-muted">What is recorded</dt>
               <dd>
                 A live transcript of your spoken speeches plus your private
-                notes, stored only on this device in demo mode. Audio itself is
+                notes. Audio itself is
                 never uploaded. You can delete any debate from History.
               </dd>
             </div>

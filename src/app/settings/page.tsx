@@ -13,6 +13,7 @@ import {
 } from "@/lib/store";
 import RequireAuth from "@/components/require-auth";
 import { logOutServer, pushProgress } from "@/lib/auth/client";
+import { clearServerAccount, pushProfile } from "@/lib/sync";
 import { getAllMotions } from "@/lib/motions";
 import { setTheme } from "@/components/theme";
 import { AvatarBuilder, DEFAULT_USER_AVATAR } from "@/components/avatar-builder";
@@ -33,11 +34,16 @@ function Settings() {
   const [avatar, setAvatar] = useState<AvatarConfig>(user.avatar ?? DEFAULT_USER_AVATAR);
   const motions = getAllMotions();
 
-  function save() {
+  async function save() {
     updateState((s) => ({
       ...s,
-      user: s.user && { ...s.user, displayName: name.trim() || s.user.displayName, country },
+      user: s.user && {
+        ...s.user,
+        displayName: name.trim() || s.user.displayName,
+        country,
+      },
     }));
+    await pushProfile();
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -112,8 +118,8 @@ function Settings() {
         <SectionTitle>Account</SectionTitle>
         <p className="mt-2 text-sm text-fg-muted">
           Signed in as <strong className="text-fg">{user.email}</strong>. Your
-          progress syncs to your account when a database is connected, so
-          logging in on another device restores it.
+          rating, history and puzzles sync to your account, so logging in on
+          another device restores them.
         </p>
         <button
           type="button"
@@ -229,8 +235,11 @@ function Settings() {
       <Card className="mt-4 p-6">
         <SectionTitle>Privacy &amp; data</SectionTitle>
         <ul className="mt-3 space-y-2 text-sm text-fg-muted">
-          <li>• All data lives in this browser&apos;s local storage — nothing is uploaded in demo mode.</li>
-          <li>• Recordings are never used for AI training; hosted builds keep this off by default with an explicit opt-in.</li>
+          <li>
+            • Your account, debates and ratings sync to Debates.ch. This browser
+            also keeps a local cache so the app stays fast offline.
+          </li>
+          <li>• Recordings are never used for AI training; that stays off by default with an explicit opt-in.</li>
           <li>• A recording indicator is always shown whenever audio or video capture is active.</li>
         </ul>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -260,10 +269,17 @@ function Settings() {
           </button>
         ) : (
           <span>
-            This permanently removes everything on this device.{" "}
+            This permanently removes your local cache and clears synced debates
+            on your account.{" "}
             <button
               type="button"
-              onClick={() => {
+              onClick={async () => {
+                try {
+                  await clearServerAccount();
+                  await logOutServer();
+                } catch {
+                  // Still wipe locally.
+                }
                 updateState(() => defaultState());
                 router.push("/");
               }}

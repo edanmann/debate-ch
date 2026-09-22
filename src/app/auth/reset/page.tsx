@@ -3,86 +3,53 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signUp } from "@/lib/auth/client";
-import { useAppState } from "@/lib/store";
+import { updatePassword } from "@/lib/auth/client";
 import { buttonClass, Card } from "@/components/ui";
 
-export default function SignupPage() {
+export default function ResetPasswordPage() {
   const router = useRouter();
-  const { user } = useAppState();
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [note, setNote] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const trimmed = email.trim().toLowerCase();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(trimmed)) {
-      setError("That doesn't look like an email address.");
-      return;
-    }
     if (password.length < 8) {
       setError("Passwords need at least 8 characters.");
       return;
     }
+    if (password !== confirm) {
+      setError("The two passwords do not match.");
+      return;
+    }
     setBusy(true);
     setError(null);
-    setNote(null);
-
-    const res = await signUp(trimmed, password);
+    const res = await updatePassword(password);
     setBusy(false);
-
     if (!res.ok) {
-      setError(res.message ?? "Could not create the account.");
+      setError(res.message ?? "Could not update the password.");
       return;
     }
-    if (res.needsEmailConfirm) {
-      setNote(res.message ?? "Check your email to confirm, then log in.");
-      return;
-    }
-    router.push("/onboarding");
+    setDone(true);
+    setTimeout(() => router.push("/home"), 1200);
   }
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-12">
-      <h1 className="text-3xl font-extrabold tracking-tight">Create your account</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight">Choose a new password</h1>
       <p className="mt-2 text-sm text-fg-muted">
-        Keep your rating, your history and every bot unlocked.
+        You arrived here from the reset link in your email.
       </p>
       <Card className="mt-6 p-6">
-        {user ? (
-          <div className="space-y-4">
-            <p className="text-sm">
-              Signed in as <strong>{user.displayName || user.email}</strong>.
-            </p>
-            <Link href="/home" className={`${buttonClass("primary", "lg")} w-full`}>
-              Go to dashboard
-            </Link>
-          </div>
+        {done ? (
+          <p className="text-sm text-fg-muted">Password updated. Taking you in…</p>
         ) : (
           <form onSubmit={submit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setError(null);
-                }}
-                className="mt-1.5 w-full rounded-xl border border-border-subtle bg-surface-2 px-3 py-2.5 text-sm outline-none focus:border-brand"
-              />
-            </div>
-            <div>
               <label htmlFor="password" className="text-sm font-medium">
-                Password
+                New password
               </label>
               <input
                 id="password"
@@ -98,21 +65,37 @@ export default function SignupPage() {
                 className="mt-1.5 w-full rounded-xl border border-border-subtle bg-surface-2 px-3 py-2.5 text-sm outline-none focus:border-brand"
               />
             </div>
+            <div>
+              <label htmlFor="confirm" className="text-sm font-medium">
+                Confirm password
+              </label>
+              <input
+                id="confirm"
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={8}
+                value={confirm}
+                onChange={(e) => {
+                  setConfirm(e.target.value);
+                  setError(null);
+                }}
+                className="mt-1.5 w-full rounded-xl border border-border-subtle bg-surface-2 px-3 py-2.5 text-sm outline-none focus:border-brand"
+              />
+            </div>
             {error && <p className="text-sm text-blunder">{error}</p>}
-            {note && <p className="text-sm text-brand">{note}</p>}
             <button
               type="submit"
               disabled={busy}
               className={`${buttonClass("primary", "lg")} w-full`}
             >
-              {busy ? "Creating…" : "Create account"}
+              {busy ? "Saving…" : "Update password"}
             </button>
           </form>
         )}
         <p className="mt-4 text-sm text-fg-muted">
-          Already have an account?{" "}
           <Link href="/login" className="text-brand underline">
-            Log in
+            Back to log in
           </Link>
         </p>
       </Card>

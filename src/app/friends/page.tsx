@@ -14,8 +14,8 @@ function Friends() {
 
       <div className="mt-6">
         <EmptyState
-          title="No friends yet"
-          body="Friend search, requests and blocking run on the hosted backend. In this local demo you can still generate a private lobby link to share."
+          title="No friends list yet"
+          body="Friend search and requests come later. Private lobbies already work — create a link and debate someone on another device."
           action={<ButtonLink href="/debate/friend">Create an invite link</ButtonLink>}
         />
       </div>
